@@ -1,0 +1,37 @@
+.movie-details {
+  color: white;
+  background-size:cover;
+  background-position:center;
+  background-repeat: no-repeat;
+}
+
+.cast-list {
+  color: #ccc;
+}
+
+.favorite-in-card {
+  background-color: rgb(164, 164, 164);
+  color: black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0.5rem;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.favorite-in-card.active {
+  background-color: white;
+  color: #ff4757;
+}
+
+.title {
+  text-align: center;
+  margin: 0;
+  display: flex;
+}
+
+.content p {
+  font-size: 20px;
+  padding-bottom: 20px;
+}

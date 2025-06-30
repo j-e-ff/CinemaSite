@@ -1,0 +1,76 @@
+.movie-details {
+  color: white;
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position:right center;
+}
+
+.movie-details p {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.movie-details::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay for text readability */
+  z-index: 1;
+}
+
+.movie-details > * {
+  position: relative;
+  z-index: 2; /* Ensure content appears above the overlay */
+}
+
+.cast-list {
+  color: white;
+  margin-top: 5rem;
+  display: flex;
+  overflow-x: auto;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.cast-card {
+  flex-shrink: 0;
+  width: 200px;
+  text-align: center;
+  padding: 1rem;
+}
+
+.cast-card img {
+  height: 300px;
+  width: 200px;
+  object-fit: cover;
+}
+.title {
+  color: white;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.content {
+  padding-top: 40px;
+}
+
+/*button css*/
+.favorite-in-card{
+  background-color: white;
+  color:black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  justify-content:center;
+  padding: 0.5rem;
+}
+
+.favorite-in-card.active {
+  color: #ff4757;
+}
