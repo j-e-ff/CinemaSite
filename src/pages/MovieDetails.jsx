@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   getMovieDetails,
@@ -15,7 +15,7 @@ function MovieDetails() {
   const [credit, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
 
-//favorite button
+  //favorite button
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
 
   function onFavoriteClick(e) {
@@ -32,10 +32,9 @@ function MovieDetails() {
       try {
         const movieData = await getMovieDetails(id);
         const movieCredits = await getMovieCredits(id);
-        const movieRating = await getMovieRatings(id);
         setMovie(movieData);
         setCredits(movieCredits);
-        setRatings(movieRating);
+        
       } catch (error) {
         console.log(error);
       } finally {
@@ -59,13 +58,19 @@ function MovieDetails() {
         }}
       >
         <img
-          src={
-            `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-          }
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
         />
         <div className="content">
           <h1 className="title">{movie.title}</h1>
+          <button
+            className={`favorite-in-card ${
+              isFavorite(movie.id) ? "active" : ""
+            }`}
+            onClick={onFavoriteClick}
+          >
+            ♥
+          </button>
           <p>
             <strong>Overview:</strong>
           </p>
@@ -94,16 +99,15 @@ function MovieDetails() {
             {movie.in_production ? "In production" : "Completed"}
           </p>
         </div>
-        <button
-        className={`favorite-in-card ${isFavorite(movie.id) ? "active": ""}`}
-        onClick={onFavoriteClick}>
-          ♥
-        </button>
       </div>
       <div>
         <div className="cast-list">
           {credit.cast.map((actor) => (
-            <div key={actor.id} className="cast-card">
+            <Link
+              to={`/actor/${actor.id}`}
+              key={actor.id}
+              className="cast-card"
+            >
               <img
                 src={
                   actor.profile_path
@@ -116,7 +120,7 @@ function MovieDetails() {
                 <strong>{actor.name}</strong>
               </p>
               <p>{actor.character}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

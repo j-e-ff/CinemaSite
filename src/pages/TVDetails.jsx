@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getShowCredits, getShowDetails } from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
@@ -56,13 +56,16 @@ function TVDetails() {
           alt={series.name}
         />
         <div className="content">
-          <div className= "title-section">
+          <div className="title-section">
             <h1 className="title">{series.name}</h1>
-            <button 
-        className={`favorite-in-card ${isFavorite(series.id) ? "active" : ""}`}
-        onClick={onFavoriteClick}>
-          ♥
-        </button>
+            <button
+              className={`favorite-in-card ${
+                isFavorite(series.id) ? "active" : ""
+              }`}
+              onClick={onFavoriteClick}
+            >
+              ♥
+            </button>
           </div>
           <p>
             <strong>Overview:</strong>
@@ -102,12 +105,15 @@ function TVDetails() {
                 ))
               : "Unknown"}
           </p>
-          <p><strong>In Production: </strong>{series.in_production ? "Returning":"Completed"}</p>
+          <p>
+            <strong>In Production: </strong>
+            {series.in_production ? "Returning" : "Completed"}
+          </p>
         </div>
       </div>
       <div className="cast-list">
         {tvCredit.cast.map((actor) => (
-          <div key={actor.id} className="cast-card">
+          <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">
             <img
               src={
                 actor.profile_path
@@ -120,7 +126,7 @@ function TVDetails() {
               <strong>{actor.name}</strong>
             </p>
             <p>{actor.character}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

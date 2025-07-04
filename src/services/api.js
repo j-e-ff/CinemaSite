@@ -69,3 +69,9 @@ export const getPeople = async(id)=>{
   const data = await response.json();
   return data;
 }
+
+export const getExternalIDs = async(id) =>{
+  const response = await fetch(`${BASE_URL}/person/${id}/external_ids?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data
+}

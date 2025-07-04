@@ -6,6 +6,7 @@ import TVDetails from "./pages/TVDetails";
 import NavBar from "./components/NavBar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { MovieProvider } from "./context/MovieContext";
+import ActorsPage from "./pages/ActorsPage";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/favorites" element={<Favorites/>} />
           <Route path="/movie/:id" element={<MovieDetails/>} />
           <Route path="/tv/:id" element={<TVDetails/>} />
+          <Route path="/actor/:id" element={<ActorsPage/>}/>
         </Routes>
       </main>
     </MovieProvider>
