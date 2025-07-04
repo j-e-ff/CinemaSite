@@ -108,6 +108,7 @@ function Home() {
 
       {error && <div className="error-message">{error}</div>}
 
+      <h2 className="title">Popular movies</h2>
       {loading ? (
         <div className="loading">Loading...</div>
       ) : (

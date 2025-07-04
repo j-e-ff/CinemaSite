@@ -1,6 +1,7 @@
 const API_KEY = "d8adda5f151d7d774e14559dafc26eca";
 const BASE_URL = "https://api.themoviedb.org/3";
 
+// Movies
 export const getPopularMovies = async () => {
   const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
   const data = await response.json();
@@ -17,24 +18,43 @@ export const searchMovies = async (query) => {
   return data.results;
 };
 
-export const getMovieDetails = async (id) => {
-  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+export const getMovieDetails = async (movie_id) => {
+  const response = await fetch(`${BASE_URL}/movie/${movie_id}?api_key=${API_KEY}`);
   const data = await response.json();
   return data;
 };
 
-export const getMovieCredits = async(id) =>{
-  const response = await fetch(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`);
+export const getMovieCredits = async (movie_id) => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movie_id}/credits?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getMovieRatings = async (movie_id) => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movie_id}/account_states?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getMovieRecommendations = async (movie_id) => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movie_id}/recommendations?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+
+export const getMovieImages = async (movie_id) =>{
+  const response = await fetch(`${BASE_URL}/movie/${movie_id}/images?api_key=${API_KEY}`)
   const data = await response.json();
   return data;
 }
 
-export const getMovieRatings = async(id) =>{
-  const response = await fetch(`${BASE_URL}/movie/${id}/account_states?api_key=${API_KEY}`);
-  const data = await response.json();
-  return data;
-}
-
+// Series
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
   const data = await response.json();
@@ -51,33 +71,54 @@ export const searchShows = async (query) => {
   return data.results;
 };
 
-export const getShowDetails = async (id)=>{
-  const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
+export const getShowDetails = async (series_id) => {
+  const response = await fetch(`${BASE_URL}/tv/${series_id}?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data;
+};
+
+export const getShowCredits = async (series_id) => {
+  const response = await fetch(
+    `${BASE_URL}/tv/${series_id}/aggregate_credits?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const getShowRecommendations = async (series_id) => {
+  const response = await fetch(
+    `${BASE_URL}/tv/${series_id}/recommendations?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+
+export const getSeriesImages = async(series_id) =>{
+  const response = await fetch(`${BASE_URL}/tv/${series_id}/images?api_key=${API_KEY}`)
   const data = await response.json();
   return data;
 }
 
-export const getShowCredits = async(id)=>{
-  const response = await fetch(`${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}`);
+//people
+export const getPeople = async (person_id) => {
+  const response = await fetch(`${BASE_URL}/person/${person_id}?api_key=${API_KEY}`);
   const data = await response.json();
   return data;
-}
+};
 
-//people 
-export const getPeople = async(id)=>{
-  const response = await fetch(`${BASE_URL}/person/${id}?api_key=${API_KEY}`);
+export const getExternalIDs = async (person_id) => {
+  const response = await fetch(
+    `${BASE_URL}/person/${person_id}/external_ids?api_key=${API_KEY}`
+  );
   const data = await response.json();
   return data;
-}
+};
 
-export const getExternalIDs = async(id) =>{
-  const response = await fetch(`${BASE_URL}/person/${id}/external_ids?api_key=${API_KEY}`);
+export const getCombinedCredits = async (person_id) => {
+  const response = await fetch(
+    `${BASE_URL}/person/${person_id}/combined_credits?api_key=${API_KEY}`
+  );
   const data = await response.json();
   return data;
-}
+};
 
-export const getCombinedCredits =async(id) =>{
-  const response = await fetch(`${BASE_URL}/person/${id}/combined_credits?api_key=${API_KEY}`);
-  const data = await response.json()
-  return data;
-}

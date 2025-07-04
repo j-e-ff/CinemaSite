@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import {
   getMovieDetails,
   getMovieCredits,
-  getMovieRatings,
+  getMovieRecommendations,
+  getMovieImages,
 } from "../services/api";
 import "../css/MovieDetails.css";
 import { useMovieContext } from "../context/MovieContext";
+import MovieCard from "../components/MovieCard";
+import ShowCard from "../components/ShowCard";
 import noProfilePicture from "../assets/no-profile-picture.jpg";
 
 function MovieDetails() {
   const { id } = useParams(); //getting the movie id
   const [movie, setMovie] = useState(null);
   const [credit, setCredits] = useState(null);
+  const [recommendedMovies, setRecommendedMovies] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //favorite button
@@ -32,9 +36,10 @@ function MovieDetails() {
       try {
         const movieData = await getMovieDetails(id);
         const movieCredits = await getMovieCredits(id);
+        const recommendations = await getMovieRecommendations(id);
+        setRecommendedMovies(recommendations);
         setMovie(movieData);
         setCredits(movieCredits);
-        
       } catch (error) {
         console.log(error);
       } finally {
@@ -49,19 +54,19 @@ function MovieDetails() {
 
   return (
     <div>
-      <div
-        className="movie-details"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${
-            movie.backdrop_path || movie.poster_path
-          })`,
-        }}
-      >
+      <div className="movie-details">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
         />
-        <div className="content">
+        <div
+          className="content"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${
+              movie.backdrop_path || movie.poster_path
+            })`,
+          }}
+        >
           <h1 className="title">{movie.title}</h1>
           <button
             className={`favorite-in-card ${
@@ -75,7 +80,10 @@ function MovieDetails() {
             <strong>Overview:</strong>
           </p>
           <p>{movie.overview}</p>
-          <p><strong>Runtime: </strong>{movie.runtime} minutes</p>
+          <p>
+            <strong>Runtime: </strong>
+            {movie.runtime} minutes
+          </p>
           <p>
             <strong>Release Date: </strong>
             {movie.release_date}
@@ -102,6 +110,7 @@ function MovieDetails() {
         </div>
       </div>
       <div>
+        <h2 className="cast-title">Cast</h2>
         <div className="cast-list">
           {credit.cast.map((actor) => (
             <Link
@@ -123,6 +132,18 @@ function MovieDetails() {
               <p>{actor.character}</p>
             </Link>
           ))}
+        </div>
+      </div>
+      <div className="recommendations">
+        <h2 className="recommendation-title">More Like This</h2>
+        <div className="recommended-grid">
+          {recommendedMovies.map((item) =>
+            item.media_type === "movie" ? (
+              <MovieCard movie={item} key={item.id} />
+            ) : (
+              <ShowCard movie={item} key={item.id} />
+            )
+          )}
         </div>
       </div>
     </div>

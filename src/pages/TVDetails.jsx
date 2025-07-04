@@ -1,14 +1,23 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getShowCredits, getShowDetails } from "../services/api";
+import {
+  getShowCredits,
+  getShowDetails,
+  getShowRecommendations,
+  getSeriesImages,
+} from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
+import MovieCard from "../components/MovieCard";
+import ShowCard from "../components/ShowCard";
 import "../css/TVDetails.css";
+import noProfilePicture from "../assets/no-profile-picture.jpg";
 
 function TVDetails() {
   const { id } = useParams();
   const [series, setSeries] = useState(null); //getting the series
-  const [tvRating, setTVRating] = useState(null);
   const [tvCredit, setTVCredit] = useState(null);
+  const [recommendedShows, setRecommendedShows] = useState(null);
+  const [seriesBackdrop, setSeriesBackdrop] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //favorite button
@@ -28,6 +37,19 @@ function TVDetails() {
       try {
         const seriesData = await getShowDetails(id);
         const seriesCredits = await getShowCredits(id);
+        const recommendations = await getShowRecommendations(id);
+        const images = await getSeriesImages(id);
+        // Selecting random backdrop from seriesImages
+        if (images.backdrops && images.backdrops.length > 0) {
+          const randomIndex = Math.floor(
+            Math.random() * images.backdrops.length
+          );
+          setSeriesBackdrop(images.backdrops[randomIndex]);
+        } else if (seriesData.backdrop_path) {
+          // Fallback to the main backdrop if no additional backdrops available
+          setSeriesBackdrop({ file_path: seriesData.backdrop_path });
+        }
+        setRecommendedShows(recommendations);
         setSeries(seriesData);
         setTVCredit(seriesCredits);
       } catch (error) {
@@ -43,21 +65,24 @@ function TVDetails() {
   if (!series) return <div>Error, series not found</div>;
   return (
     <div>
-      <div
-        className="movie-details"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${
-            series.backdrop_path || series.poster_path
-          })`,
-        }}
-      >
+      <div className="movie-details">
         <img
           src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
           alt={series.name}
         />
-        <div className="content">
+        <div
+          className="content"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${
+              seriesBackdrop?.file_path ||
+              series.backdrop_path ||
+              series.poster_path
+            })`,
+          }}
+        >
           <div className="title-section">
             <h1 className="title">{series.name}</h1>
+            <h3>{series.first_air_date}</h3>
             <button
               className={`favorite-in-card ${
                 isFavorite(series.id) ? "active" : ""
@@ -85,7 +110,10 @@ function TVDetails() {
           <p>
             <strong>First Air Date:</strong> {series.first_air_date}
           </p>
-          <p><strong>Episode Runtime: </strong>{series.episode_run_time} minutes</p>
+          <p>
+            <strong>Episode Runtime: </strong>
+            {series.episode_run_time} minutes
+          </p>
           <p>
             <strong> Rating:</strong> {Math.round(series.vote_average * 10)}%
           </p>
@@ -119,7 +147,7 @@ function TVDetails() {
               src={
                 actor.profile_path
                   ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-                  : "https://placehold.co/200x300/cccccc/666666?text=No+Image"
+                  : noProfilePicture
               }
               alt={actor.name}
             />
@@ -129,6 +157,18 @@ function TVDetails() {
             <p>{actor.character}</p>
           </Link>
         ))}
+      </div>
+      <div className="recommendations">
+        <h2 className="recommendation-title">More Like This</h2>
+        <div className="recommended-grid">
+          {recommendedShows.map((item) =>
+            item.media_type === "movie" ? (
+              <MovieCard movie={item} key={item.id} />
+            ) : (
+              <ShowCard movie={item} key={item.id} />
+            )
+          )}
+        </div>
       </div>
     </div>
   );

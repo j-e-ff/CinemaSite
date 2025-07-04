@@ -3,9 +3,9 @@
   display: flex;
   gap: 2rem;
   position: relative;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position:right center;
+  background-position: right center;
 }
 
 .movie-details p {
@@ -31,11 +31,16 @@
 
 .cast-list {
   color: white;
-  margin-top: 5rem;
   display: flex;
   overflow-x: auto;
   gap: 2rem;
   padding: 1rem;
+}
+
+.cast-title {
+  color: white;
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
 }
 
 .cast-card {
@@ -43,7 +48,7 @@
   width: 200px;
   text-align: center;
   padding: 1rem;
-  color:white;
+  color: white;
 }
 
 .cast-card img {
@@ -58,20 +63,38 @@
 }
 
 .content {
-  padding-top: 40px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
 /*button css*/
-.favorite-in-card{
+.favorite-in-card {
   background-color: white;
-  color:black;
+  color: black;
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  justify-content:center;
+  justify-content: center;
   padding: 0.5rem;
 }
 
 .favorite-in-card.active {
   color: #ff4757;
+}
+
+.recommendation-title {
+  color: white;
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+}
+
+.recommended-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
