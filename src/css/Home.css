@@ -31,7 +31,7 @@
 
 .search-button {
   padding: 0.75rem 1.5rem;
-  background-color: #936ee9;
+  background-color: #426eff;
   color: white;
   border-radius: 4px;
   font-weight: 500;
@@ -40,8 +40,9 @@
 }
 
 .search-button:hover {
-  background-color: #7e00f4;
+  background-color: #123552;
 }
+/* 123552 */
 
 .type-container{
   display:flex;
@@ -50,7 +51,7 @@
 }
 .type {
   padding: 0.75rem 1.5rem;
-  background-color: #936ee9;
+  background-color: #426eff;
   color: white;
   border-radius: 4px;
   font-weight: 500;
@@ -60,7 +61,7 @@
 }
 
 .type:hover {
-  background-color: #7e00f4;
+  background-color: #123552;
 }
 
 @media (max-width: 639px) {

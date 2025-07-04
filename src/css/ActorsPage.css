@@ -1,3 +1,136 @@
-.actors-image{
+.actor-container {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
 
+.actor-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.known-as-list{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+}
+
+.actor-image {
+  width: 360px;
+  height: 530px;
+}
+
+.actor-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 1.1rem;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.actor-name {
+  font-size: 3.3rem;
+}
+
+.actor-credits {
+  margin-top: 20px;
+}
+
+.actor-credits h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.credits-list{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+}
+
+.credit-poster {
+  height: 150px;
+  
+}
+
+.credit-card{
+    color: white;
+}
+
+.credit-item{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap:16px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.credit-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 150px;
+    gap: 8px;
+}
+
+.credit-title{
+    font-weight:bold;
+}
+
+.credit-character{
+    font-size:0.95rem;
+    color:#ccc;
+    font-style: italic;
+}
+
+.credit-data{
+    font-size: 0.9rem;
+    color:#aaa;
+}
+
+.pagination-controls{
+    display:flex;
+    align-items: center;
+    gap:16px;
+    margin-top:2px;
+}
+
+.pagination-controls button{
+    padding:6px 14px;
+    border: none;
+    background-color: #426eff;
+    color:white;
+    cursor:pointer;
+    font-size: 1rem;
+}
+
+.pagination-controls button:hover{
+    background-color: #123552;
+}
+
+.pagination-controls button:disabled{
+    background:#222;
+    color:#888;
+    cursor: not-allowed;
 }

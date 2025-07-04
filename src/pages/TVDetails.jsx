@@ -85,6 +85,7 @@ function TVDetails() {
           <p>
             <strong>First Air Date:</strong> {series.first_air_date}
           </p>
+          <p><strong>Episode Runtime: </strong>{series.episode_run_time} minutes</p>
           <p>
             <strong> Rating:</strong> {Math.round(series.vote_average * 10)}%
           </p>
@@ -117,7 +118,7 @@ function TVDetails() {
             <img
               src={
                 actor.profile_path
-                  ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                  ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
                   : "https://placehold.co/200x300/cccccc/666666?text=No+Image"
               }
               alt={actor.name}

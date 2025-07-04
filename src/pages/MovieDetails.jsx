@@ -75,6 +75,7 @@ function MovieDetails() {
             <strong>Overview:</strong>
           </p>
           <p>{movie.overview}</p>
+          <p><strong>Runtime: </strong>{movie.runtime} minutes</p>
           <p>
             <strong>Release Date: </strong>
             {movie.release_date}
@@ -111,7 +112,7 @@ function MovieDetails() {
               <img
                 src={
                   actor.profile_path
-                    ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                    ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
                     : noProfilePicture
                 }
                 alt={actor.name}
