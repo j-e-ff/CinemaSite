@@ -45,21 +45,30 @@
 
 .cast-card {
   flex-shrink: 0;
-  width: 200px;
   text-align: center;
-  padding: 1rem;
   color: white;
+  background-color: #1e1e1e;
+  border-radius: 8px;
 }
 
 .cast-card img {
   height: 300px;
   width: 200px;
-  object-fit: cover;
+  object-fit: fit;
+  border-radius: 8px;
 }
 .title {
   color: white;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.year {
+  font-weight: normal;
+  font-size:28px;
+  opacity: 1;
+  margin-left:6px;
+  margin-top: 18px;
 }
 
 .content {

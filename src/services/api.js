@@ -54,6 +54,12 @@ export const getMovieImages = async (movie_id) =>{
   return data;
 }
 
+export const getMovieProviders = async(movie_id)=>{
+  const response = await fetch(`${BASE_URL}/movie/${movie_id}/watch/providers?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data.results; //object will be keyed by country codes
+}
+
 // Series
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
@@ -94,9 +100,15 @@ export const getShowRecommendations = async (series_id) => {
 };
 
 export const getSeriesImages = async(series_id) =>{
-  const response = await fetch(`${BASE_URL}/tv/${series_id}/images?api_key=${API_KEY}`)
+  const response = await fetch(`${BASE_URL}/tv/${series_id}/images?api_key=${API_KEY}`);
   const data = await response.json();
   return data;
+}
+
+export const getShowProviders = async(series_id)=>{
+  const response = await fetch(`${BASE_URL}/tv/${series_id}/watch/providers?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data.results;  //object will be keyed by country codes
 }
 
 //people

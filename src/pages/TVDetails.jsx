@@ -9,8 +9,9 @@ import {
 import { useMovieContext } from "../context/MovieContext";
 import MovieCard from "../components/MovieCard";
 import ShowCard from "../components/ShowCard";
-import "../css/TVDetails.css";
 import noProfilePicture from "../assets/no-profile-picture.jpg";
+import WhereToWatch from "../components/WhereToWatch";
+import "../css/TVDetails.css";
 
 function TVDetails() {
   const { id } = useParams();
@@ -81,8 +82,9 @@ function TVDetails() {
           }}
         >
           <div className="title-section">
-            <h1 className="title">{series.name}</h1>
-            <h3>{series.first_air_date}</h3>
+            <h1 className="title">{series.name}
+              <span className="year">({new Date(series.first_air_date).getFullYear()})</span>
+            </h1>
             <button
               className={`favorite-in-card ${
                 isFavorite(series.id) ? "active" : ""
@@ -138,6 +140,7 @@ function TVDetails() {
             <strong>In Production: </strong>
             {series.in_production ? "Returning" : "Completed"}
           </p>
+          <WhereToWatch movieId={series.id} type="series" />
         </div>
       </div>
       <div className="cast-list">
@@ -154,7 +157,15 @@ function TVDetails() {
             <p>
               <strong>{actor.name}</strong>
             </p>
-            <p>{actor.character}</p>
+            <p>
+              {actor.roles && actor.roles.length > 0 ? (
+                actor.roles.map((roles, index) => (
+                  <p key={index}>{roles.character}</p>
+                ))
+              ) : (
+                <p>character information not available</p>
+              )}
+            </p>
           </Link>
         ))}
       </div>

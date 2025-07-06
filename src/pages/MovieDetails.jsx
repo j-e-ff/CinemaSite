@@ -7,6 +7,7 @@ import {
   getMovieImages,
 } from "../services/api";
 import "../css/MovieDetails.css";
+import WhereToWatch from "../components/WhereToWatch";
 import { useMovieContext } from "../context/MovieContext";
 import MovieCard from "../components/MovieCard";
 import ShowCard from "../components/ShowCard";
@@ -67,7 +68,12 @@ function MovieDetails() {
             })`,
           }}
         >
-          <h1 className="title">{movie.title}</h1>
+          <h1 className="title">
+            {movie.title}
+            <span className="year">
+              ({new Date(movie.release_date).getFullYear()})
+            </span>
+          </h1>
           <button
             className={`favorite-in-card ${
               isFavorite(movie.id) ? "active" : ""
@@ -107,6 +113,7 @@ function MovieDetails() {
             <strong>In Production: </strong>
             {movie.in_production ? "In production" : "Completed"}
           </p>
+          <WhereToWatch movieId={movie.id} type="movie" />
         </div>
       </div>
       <div>

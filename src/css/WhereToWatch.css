@@ -1,0 +1,19 @@
+.provider-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.provider-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.provider-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
