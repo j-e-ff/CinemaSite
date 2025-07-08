@@ -1,8 +1,13 @@
+.providers-section{
+  padding-left:1rem;
+}
+
 .provider-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
+  
 }
 
 .provider-item {

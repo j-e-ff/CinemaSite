@@ -32,7 +32,7 @@ const WhereToWatch = ({ movieId, type }) => {
     if (!providersList || providersList.length === 0) return null;
 
     return (
-      <div className="provider-section">
+      <div className="providers-section">
         <h3 className="provider-title">{title}</h3>
         <div className="provider-container">
           {providersList.map((provider) => (

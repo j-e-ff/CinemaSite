@@ -22,7 +22,14 @@ function TVDetails() {
   const [loading, setLoading] = useState(true);
 
   //favorite button
-  const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  const {
+    isFavorite,
+    addToFavorites,
+    removeFromFavorites,
+    addToWatchLater,
+    removeFromWatchLater,
+    isWatchLater,
+  } = useMovieContext();
 
   function onFavoriteClick(e) {
     e.preventDefault();
@@ -30,6 +37,15 @@ function TVDetails() {
       removeFromFavorites(series.id);
     } else if (series) {
       addToFavorites(series);
+    }
+  }
+  // adding series to watch later list
+  function onWatchLaterClick(e){
+    e.preventDefault();
+    if (series && isWatchLater(series.id)){
+      removeFromWatchLater(series.id);
+    } else if (series){
+      addToWatchLater(series);
     }
   }
 
@@ -66,33 +82,50 @@ function TVDetails() {
   if (!series) return <div>Error, series not found</div>;
   return (
     <div>
-      <div className="movie-details">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
-          alt={series.name}
-        />
-        <div
-          className="content"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${
-              seriesBackdrop?.file_path ||
-              series.backdrop_path ||
-              series.poster_path
-            })`,
-          }}
-        >
+      <div
+        className="movie-details"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${
+            seriesBackdrop?.file_path ||
+            series.backdrop_path ||
+            series.poster_path
+          })`,
+        }}
+      >
+        <div className="left-section">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
+            alt={series.name}
+            className="movie-image"
+          />
+          <WhereToWatch movieId={series.id} type="series" />
+        </div>
+        <div className="content">
           <div className="title-section">
-            <h1 className="title">{series.name}
-              <span className="year">({new Date(series.first_air_date).getFullYear()})</span>
+            <h1 className="title">
+              {series.name}
+              <span className="year">
+                ({new Date(series.first_air_date).getFullYear()})
+              </span>
             </h1>
-            <button
-              className={`favorite-in-card ${
-                isFavorite(series.id) ? "active" : ""
-              }`}
-              onClick={onFavoriteClick}
-            >
-              ♥
-            </button>
+            <div className="buttons">
+              <button
+                className={`favorite-in-card ${
+                  isFavorite(series.id) ? "active" : ""
+                }`}
+                onClick={onFavoriteClick}
+              >
+                ♥
+              </button>
+              <button
+                className={`favorite-in-card ${
+                  isWatchLater(series.id) ? "active" : ""
+                }`}
+                onClick={onWatchLaterClick}
+              >
+                ✓
+              </button>
+            </div>
           </div>
           <p>
             <strong>Overview:</strong>
@@ -140,7 +173,6 @@ function TVDetails() {
             <strong>In Production: </strong>
             {series.in_production ? "Returning" : "Completed"}
           </p>
-          <WhereToWatch movieId={series.id} type="series" />
         </div>
       </div>
       <div className="cast-list">

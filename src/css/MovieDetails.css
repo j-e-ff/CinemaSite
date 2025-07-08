@@ -6,6 +6,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right center;
+  background-color: #121212;
 }
 
 .movie-details p {
@@ -65,9 +66,9 @@
 
 .year {
   font-weight: normal;
-  font-size:28px;
+  font-size: 28px;
   opacity: 1;
-  margin-left:6px;
+  margin-left: 6px;
   margin-top: 18px;
 }
 
@@ -106,4 +107,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
+}
+
+.buttons{
+  display:flex;
+  gap: 9px;
 }

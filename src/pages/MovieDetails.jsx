@@ -21,7 +21,14 @@ function MovieDetails() {
   const [loading, setLoading] = useState(true);
 
   //favorite button
-  const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  const {
+    isFavorite,
+    addToFavorites,
+    removeFromFavorites,
+    isWatchLater,
+    addToWatchLater,
+    removeFromWatchLater,
+  } = useMovieContext();
 
   function onFavoriteClick(e) {
     e.preventDefault();
@@ -29,6 +36,16 @@ function MovieDetails() {
       removeFromFavorites(movie.id);
     } else if (movie) {
       addToFavorites(movie);
+    }
+  }
+
+  // adding movie to watch later list
+  function onWatchLaterClick(e) {
+    e.preventDefault();
+    if (movie && isWatchLater(movie.id)) {
+      removeFromWatchLater(movie.id);
+    } else if (movie) {
+      addToWatchLater(movie);
     }
   }
 
@@ -55,33 +72,47 @@ function MovieDetails() {
 
   return (
     <div>
-      <div className="movie-details">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
-        <div
-          className="content"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${
-              movie.backdrop_path || movie.poster_path
-            })`,
-          }}
-        >
+      <div
+        className="movie-details"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${
+            movie.backdrop_path || movie.poster_path
+          })`,
+        }}
+      >
+        <div className="left-section">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="movie-image"
+          />
+          <WhereToWatch movieId={movie.id} type="movie" />
+        </div>
+        <div className="content">
           <h1 className="title">
             {movie.title}
             <span className="year">
               ({new Date(movie.release_date).getFullYear()})
             </span>
           </h1>
-          <button
-            className={`favorite-in-card ${
-              isFavorite(movie.id) ? "active" : ""
-            }`}
-            onClick={onFavoriteClick}
-          >
-            ♥
-          </button>
+          <div className="buttons">
+            <button
+              className={`favorite-in-card ${
+                isFavorite(movie.id) ? "active" : ""
+              }`}
+              onClick={onFavoriteClick}
+            >
+              ♥
+            </button>
+            <button
+              className={`favorite-in-card ${
+                isWatchLater(movie.id) ? "active" : ""
+              }`}
+              onClick={onWatchLaterClick}
+            >
+              ✓
+            </button>
+          </div>
           <p>
             <strong>Overview:</strong>
           </p>
@@ -113,7 +144,6 @@ function MovieDetails() {
             <strong>In Production: </strong>
             {movie.in_production ? "In production" : "Completed"}
           </p>
-          <WhereToWatch movieId={movie.id} type="movie" />
         </div>
       </div>
       <div>
