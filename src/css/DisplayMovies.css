@@ -1,0 +1,40 @@
+.movies-list {
+  color: white;
+  display: flex;
+  overflow-x: auto;
+  gap: 2rem;
+  padding: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.movies-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.movies-list::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+
+.movies-list::-webkit-scrollbar-thumb {
+  background: #426eff;
+  border-radius: 4px;
+}
+
+/* Ensure movie cards have consistent width in horizontal scroll */
+.movies-list .movie-card {
+  min-width: none;
+  max-width: 250px;
+  flex-shrink: 0;
+}
+
+.movies-list-search-results {
+  margin-top:1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+

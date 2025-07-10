@@ -29,7 +29,7 @@ function Lists() {
               ) : (
                 <ShowCard movie={item} key={item.id} />
               )
-            )}  
+            )}    
         </div>
       ) : (
         <div className="empty">

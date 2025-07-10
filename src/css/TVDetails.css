@@ -69,3 +69,16 @@
   display: flex;
   gap: 9px;
 }
+
+.trailer-container{
+  gap:20px;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16/9;
+  margin: 0 auto;
+}
+
+.trailer-container iframe {
+  border: 0;
+}

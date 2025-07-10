@@ -5,6 +5,7 @@ import {
   getShowDetails,
   getShowRecommendations,
   getSeriesImages,
+  getShowTrailers,
 } from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
 import MovieCard from "../components/MovieCard";
@@ -19,6 +20,7 @@ function TVDetails() {
   const [tvCredit, setTVCredit] = useState(null);
   const [recommendedShows, setRecommendedShows] = useState(null);
   const [seriesBackdrop, setSeriesBackdrop] = useState(null);
+  const [seriesTrailers, setSeriesTrailers] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //favorite button
@@ -40,11 +42,11 @@ function TVDetails() {
     }
   }
   // adding series to watch later list
-  function onWatchLaterClick(e){
+  function onWatchLaterClick(e) {
     e.preventDefault();
-    if (series && isWatchLater(series.id)){
+    if (series && isWatchLater(series.id)) {
       removeFromWatchLater(series.id);
-    } else if (series){
+    } else if (series) {
       addToWatchLater(series);
     }
   }
@@ -56,6 +58,7 @@ function TVDetails() {
         const seriesCredits = await getShowCredits(id);
         const recommendations = await getShowRecommendations(id);
         const images = await getSeriesImages(id);
+        const trailers = await getShowTrailers(id);
         // Selecting random backdrop from seriesImages
         if (images.backdrops && images.backdrops.length > 0) {
           const randomIndex = Math.floor(
@@ -69,6 +72,7 @@ function TVDetails() {
         setRecommendedShows(recommendations);
         setSeries(seriesData);
         setTVCredit(seriesCredits);
+        setSeriesTrailers(trailers);
       } catch (error) {
         console.log(error);
       } finally {
@@ -175,6 +179,19 @@ function TVDetails() {
           </p>
         </div>
       </div>
+      {seriesTrailers && seriesTrailers.length > 0 && (
+        <div className="trailer">
+          <div className="trailer-container">
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${seriesTrailers[0].key}`}
+              title={seriesTrailers[0].name}
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
       <div className="cast-list">
         {tvCredit.cast.map((actor) => (
           <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">

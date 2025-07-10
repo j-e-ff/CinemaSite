@@ -4,7 +4,7 @@ import {
   getMovieDetails,
   getMovieCredits,
   getMovieRecommendations,
-  getMovieImages,
+  getMovieTrailers,
 } from "../services/api";
 import "../css/MovieDetails.css";
 import WhereToWatch from "../components/WhereToWatch";
@@ -19,6 +19,7 @@ function MovieDetails() {
   const [credit, setCredits] = useState(null);
   const [recommendedMovies, setRecommendedMovies] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [trailers, setTrailers] = useState(null);
 
   //favorite button
   const {
@@ -55,6 +56,8 @@ function MovieDetails() {
         const movieData = await getMovieDetails(id);
         const movieCredits = await getMovieCredits(id);
         const recommendations = await getMovieRecommendations(id);
+        const movieTrailers = await getMovieTrailers(id);
+        setTrailers(movieTrailers);
         setRecommendedMovies(recommendations);
         setMovie(movieData);
         setCredits(movieCredits);
@@ -72,6 +75,7 @@ function MovieDetails() {
 
   return (
     <div>
+      {/* MOVIE INFORMATION */}
       <div
         className="movie-details"
         style={{
@@ -146,6 +150,21 @@ function MovieDetails() {
           </p>
         </div>
       </div>
+      {/* MOVIE TRAILER SECTION */}
+      <div className="trailer">
+        {trailers.length > 0 && (
+          <div className="trailer-container">
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${trailers[0].key}`}
+              title={trailers[0].name}
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
+      </div>
+      {/* CAST LIST */}
       <div>
         <h2 className="cast-title">Cast</h2>
         <div className="cast-list">
@@ -171,6 +190,7 @@ function MovieDetails() {
           ))}
         </div>
       </div>
+      {/* MOVIE RECCOMENDATIONS */}
       <div className="recommendations">
         <h2 className="recommendation-title">More Like This</h2>
         <div className="recommended-grid">
