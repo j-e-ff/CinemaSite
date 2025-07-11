@@ -33,7 +33,7 @@ const WhereToWatch = ({ movieId, type }) => {
 
     return (
       <div className="providers-section">
-        <h3 className="provider-title">{title}</h3>
+        <span className="provider-title"><strong>{title}</strong></span>
         <div className="provider-container">
           {providersList.map((provider) => (
             <Link
@@ -57,7 +57,7 @@ const WhereToWatch = ({ movieId, type }) => {
 
   return (
     <div className="providers-section">
-      <h2 className="title">JustWatch Info</h2>
+      <h2 className="left-title">JustWatch</h2>
       {providers &&
       (providers.flatrate?.length > 0 ||
         providers.free?.length > 0 ||

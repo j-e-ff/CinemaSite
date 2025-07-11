@@ -192,6 +192,7 @@ function TVDetails() {
           </div>
         </div>
       )}
+      <span className="cast-title">Cast</span>
       <div className="cast-list">
         {tvCredit.cast.map((actor) => (
           <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">
@@ -219,7 +220,7 @@ function TVDetails() {
         ))}
       </div>
       <div className="recommendations">
-        <h2 className="recommendation-title">More Like This</h2>
+        <span className="recommendation-title">More Like {series.name}</span>
         <div className="recommended-grid">
           {recommendedShows.map((item) =>
             item.media_type === "movie" ? (

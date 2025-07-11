@@ -3,10 +3,14 @@ import MovieCard from "./MovieCard";
 import ShowCard from "./ShowCard";
 import "../css/DisplayMovies.css";
 
-const DisplayMovies = ({ movieToggle, movieList, sectionId, isSearch=false}) => {
+const DisplayMovies = ({
+  movieToggle,
+  movieList,
+  sectionId,
+  isSearch = false,
+}) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
 
   const checkScrollPosition = () => {
     const itemsList = document.querySelector(`.movies-list-${sectionId}`);
@@ -33,6 +37,8 @@ const DisplayMovies = ({ movieToggle, movieList, sectionId, isSearch=false}) => 
         left: 800,
         behavior: "smooth",
       });
+      // Wait for smooth scroll to finish
+      setTimeout(checkScrollPosition, 350); 
     }
   };
 
@@ -43,20 +49,24 @@ const DisplayMovies = ({ movieToggle, movieList, sectionId, isSearch=false}) => 
         left: -800,
         behavior: "smooth",
       });
+      // Wait for smooth scroll to finish
+      setTimeout(checkScrollPosition, 350); 
     }
   };
 
   return (
     <div className="popular-movies-container">
-      {!isSearch && <button
-        className={`scroll-btn scroll-btn-left ${
-          !canScrollLeft ? "disabled" : ""
-        }`}
-        onClick={scrollToPrev}
-        disable={!canScrollLeft}
-      >
-        <h3>&lt;</h3>
-      </button>}
+      {!isSearch && (
+        <button
+          className={`scroll-btn scroll-btn-left ${
+            !canScrollLeft ? "disabled" : ""
+          }`}
+          onClick={scrollToPrev}
+          disabled={!canScrollLeft}
+        >
+          <h3>&lt;</h3>
+        </button>
+      )}
       <div className={`movies-list movies-list-${sectionId}`}>
         {movieList.map((item) =>
           movieToggle ? (
@@ -66,15 +76,17 @@ const DisplayMovies = ({ movieToggle, movieList, sectionId, isSearch=false}) => 
           )
         )}
       </div>
-      {!isSearch && <button
-        className={`scroll-btn scroll-btn-right ${
-          !canScrollRight ? "disabled" : ""
-        }`}
-        onClick={scrollToNext}
-        disable={!canScrollRight}
-      >
-        <h3>&gt;</h3>
-      </button>}
+      {!isSearch && (
+        <button
+          className={`scroll-btn scroll-btn-right ${
+            !canScrollRight ? "disabled" : ""
+          }`}
+          onClick={scrollToNext}
+          disabled={!canScrollRight}
+        >
+          <h3>&gt;</h3>
+        </button>
+      )}
     </div>
   );
 };

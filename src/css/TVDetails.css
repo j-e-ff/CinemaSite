@@ -53,9 +53,14 @@
   display: flex;
 }
 
-.content p {
-  font-size: 20px;
-  padding-bottom: 15px;
+.content {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .year {
@@ -70,8 +75,8 @@
   gap: 9px;
 }
 
-.trailer-container{
-  gap:20px;
+.trailer-container {
+  gap: 20px;
   position: relative;
   width: 100%;
   max-width: 900px;

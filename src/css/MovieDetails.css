@@ -10,7 +10,6 @@
 }
 
 .movie-details p {
-  font-size: 20px;
   margin-bottom: 5px;
 }
 
@@ -54,9 +53,8 @@
 
 .cast-card img {
   height: 300px;
-  width: 200px;
+  width: 203px;
   object-fit: fit;
-  border-radius: 8px;
 }
 .title {
   color: white;
@@ -79,6 +77,12 @@
   position: relative;
   padding: 1rem;
   border-radius: 8px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.content p {
+  font-size: 20px;
+  padding-bottom: 11px;
 }
 
 /*button css*/
@@ -109,12 +113,12 @@
   gap: 1.5rem;
 }
 
-.buttons{
-  display:flex;
+.buttons {
+  display: flex;
   gap: 9px;
 }
 
-.trailer-container{
+.trailer-container {
   position: relative;
   width: 100%;
   max-width: 900px;
@@ -124,4 +128,36 @@
 
 .trailer-container iframe {
   border: 0;
+}
+
+.scroll-btn {
+  margin-top: 150px;;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 1;
+  transform: translateY(10%);
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-btn:hover {
+  opacity: 0.8;
+  transform: translateY(10%) scale(1.1);
+}
+
+.scroll-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.scroll-btn-left {
+  left: 0;
+}
+
+.scroll-btn-right {
+  right: 0;
 }

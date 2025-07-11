@@ -98,7 +98,7 @@ export const getMovieTrailers = async (movie_id) => {
   );
 };
 
-// SERIES ENDPOINTS
+// SERIES ENDPOINTS 
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
   const data = await response.json();

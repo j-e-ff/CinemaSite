@@ -1,12 +1,12 @@
 .providers-section{
-  padding-left:1rem;
+  padding-left: 1.2rem;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .provider-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: .7rem;
   
 }
 
@@ -16,9 +16,16 @@
 }
 
 .provider-item img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 12px;
+}
+
+.left-title{
+  font-size: 20px;
+  margin: 0;
+  display: flex;
+ padding-bottom: 4px;
 }
