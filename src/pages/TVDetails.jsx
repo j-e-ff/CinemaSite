@@ -23,6 +23,51 @@ function TVDetails() {
   const [seriesTrailers, setSeriesTrailers] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // scrolling
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollPosition = () => {
+    const cast = document.querySelector(".cast-list");
+    if (cast) {
+      const { scrollLeft, scrollWidth, clientWidth } = cast;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollPosition();
+    const cast = document.querySelector(".cast-list");
+    if (cast) {
+      cast.addEventListener("scroll", checkScrollPosition);
+      return () => cast.removeEventListener("scroll", checkScrollPosition);
+    }
+  }, [tvCredit]);
+
+  const scrollToNext = () => {
+    const cast = document.querySelector(".cast-list");
+    if (cast) {
+      cast.scrollBy({
+        left: 800,
+        behavior: "smooth",
+      });
+      // wait fort the smooth scroll to finish
+      setTimeout(checkScrollPosition, 350);
+    }
+  };
+
+  const scrollToPrev = () => {
+    const cast = document.querySelector(".cast-list");
+    if (cast) {
+      cast.scrollBy({
+        left: -800,
+        behavior: "smooth",
+      });
+      setTimeout(checkScrollPosition, 350);
+    }
+  };
+
   //favorite button
   const {
     isFavorite,
@@ -179,6 +224,7 @@ function TVDetails() {
           </p>
         </div>
       </div>
+      {/* TRAILER SECTION */}
       {seriesTrailers && seriesTrailers.length > 0 && (
         <div className="trailer">
           <div className="trailer-container">
@@ -192,8 +238,18 @@ function TVDetails() {
           </div>
         </div>
       )}
+      {/* CAST SECTION */}
       <span className="cast-title">Cast</span>
       <div className="cast-list">
+        <button
+          className={`cast-scroll-btn  scroll-btn-left ${
+            !canScrollLeft ? "disabled" : ""
+          }`}
+          onClick={scrollToPrev}
+          disabled={!canScrollLeft}
+        >
+          <h3>&lt;</h3>
+        </button>
         {tvCredit.cast.map((actor) => (
           <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">
             <img
@@ -218,6 +274,15 @@ function TVDetails() {
             </p>
           </Link>
         ))}
+        <button
+          className={`cast-scroll-btn scroll-btn-right ${
+            !canScrollRight ? "disabled" : ""
+          }`}
+          onClick={scrollToNext}
+          disabled={!canScrollRight}
+        >
+          &gt;
+        </button>
       </div>
       <div className="recommendations">
         <span className="recommendation-title">More Like {series.name}</span>

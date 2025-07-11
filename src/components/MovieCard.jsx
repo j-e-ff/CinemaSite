@@ -33,7 +33,7 @@ function MovieCard({ movie }) {
         <h3>{movie.title}</h3>
         <p className="movie-grid-detail">
           <span>{movie.release_date?.split("-")[0]}</span>
-          <span>{Math.round(movie.vote_average * 10)}</span>
+          <span>{Math.round(movie.vote_average * 10)}%</span>
         </p>
       </div>
     </Link>

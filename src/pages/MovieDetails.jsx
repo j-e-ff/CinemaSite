@@ -70,7 +70,7 @@ function MovieDetails() {
       cast.addEventListener("scroll", checkScrollPosition);
       return () => cast.removeEventListener("scroll", checkScrollPosition);
     }
-  }, []);
+  }, [credit]);
 
   const scrollToNext = () => {
     const cast = document.querySelector(".cast-list");
@@ -215,7 +215,7 @@ function MovieDetails() {
         <span className="cast-title">Cast</span>
         <div className="cast-list">
           <button
-          className={`scroll-btn scroll-btn-left ${
+          className={`cast-scroll-btn  scroll-btn-left ${
             !canScrollLeft ? "disabled" : ""
           }`}
           onClick={scrollToPrev}
@@ -244,7 +244,7 @@ function MovieDetails() {
             </Link>
           ))}
           <button
-          className={`scroll-btn scroll-btn-right ${
+          className={`cast-scroll-btn scroll-btn-right ${
             !canScrollRight ? "disabled" : ""
           }`}
           onClick={scrollToNext}

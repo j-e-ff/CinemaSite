@@ -31,8 +31,8 @@
 
 .search-button {
   padding: 0.75rem 1.5rem;
-  background-color: #426eff;
-  color: white;
+  background-color: white;
+  color: black;
   border-radius: 4px;
   font-weight: 500;
   transition: background-color 0.2s;
@@ -41,28 +41,15 @@
 
 .search-button:hover {
   background-color: #123552;
+  color:white;
 }
-/* 123552 */
 
 .type-container {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
 }
-.type {
-  padding: 0.75rem 1.5rem;
-  background-color: #426eff;
-  color: white;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-  white-space: nowrap;
-  margin-right: 5px;
-}
 
-.type:hover {
-  background-color: #123552;
-}
 
 @media (max-width: 639px) {
   .home {
@@ -92,4 +79,30 @@
   padding: 0 1rem;
 }
 
+.toggle-movie-button{
+  background-color: white;
+  color:black;
+}
 
+.toggle-movie-button:hover{
+  background-color: #123552;
+  color:white;
+}
+
+.toggle-show-button{
+  background-color: white;
+  color:black;
+}
+
+.toggle-show-button:hover{
+  background-color: #123552;
+  color:white;
+}
+
+.toggle-movie-button.disabled{
+  background-color: grey;
+}
+
+.toggle-show-button.disabled{
+  background-color: grey;
+}

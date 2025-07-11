@@ -162,13 +162,15 @@ function Home() {
           value={searchQuery}
           onChange={handleSearchQueryChange}
         ></input>
-        <button className="search-button">Search</button>
+        <button className={`search-button `}>
+          Search
+        </button>
       </form>
       <div className="type-container">
-        <button className="type" onClick={movieClick}>
+        <button className={`toggle-movie-button ${movieToggle ? "disabled" : ""}`} onClick={movieClick}>
           Movie
         </button>
-        <button className="type" onClick={tvClick}>
+        <button className={`toggle-show-button ${movieToggle ? "" : "disabled" }`} onClick={tvClick}>
           TV
         </button>
       </div>
