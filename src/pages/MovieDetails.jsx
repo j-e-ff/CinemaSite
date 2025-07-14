@@ -6,6 +6,7 @@ import {
   getMovieRecommendations,
   getMovieTrailers,
 } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 import "../css/MovieDetails.css";
 import WhereToWatch from "../components/WhereToWatch";
 import { useMovieContext } from "../context/MovieContext";
@@ -20,6 +21,7 @@ function MovieDetails() {
   const [recommendedMovies, setRecommendedMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [trailers, setTrailers] = useState(null);
+  const { isAuthenticated } = useAuth();
 
   // scrolling
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -37,6 +39,13 @@ function MovieDetails() {
 
   function onFavoriteClick(e) {
     e.preventDefault();
+
+    // Check if user is authenticated before allowing list operations
+    if (!isAuthenticated) {
+      alert("please log in to add movies to favorites!");
+      return;
+    }
+  
     if (movie && isFavorite(movie.id)) {
       removeFromFavorites(movie.id);
     } else if (movie) {
@@ -47,6 +56,13 @@ function MovieDetails() {
   // adding movie to watch later list
   function onWatchLaterClick(e) {
     e.preventDefault();
+
+    // Check if user is authenticated before allowing list operations
+    if (!isAuthenticated) {
+      alert("please log in to add to watch later");
+      return;
+    }
+
     if (movie && isWatchLater(movie.id)) {
       removeFromWatchLater(movie.id);
     } else if (movie) {
@@ -147,17 +163,13 @@ function MovieDetails() {
           </h1>
           <div className="buttons">
             <button
-              className={`favorite-in-card ${
-                isFavorite(movie.id) ? "active" : ""
-              }`}
+              className={`favorite-in-card ${isAuthenticated ? (isFavorite(movie.id) ? "active" : "") : ("")}`}
               onClick={onFavoriteClick}
             >
               ♥
             </button>
             <button
-              className={`favorite-in-card ${
-                isWatchLater(movie.id) ? "active" : ""
-              }`}
+              className={`favorite-in-card ${isAuthenticated ? (isWatchLater(movie.id) ? "active" : "") : ("")}`}
               onClick={onWatchLaterClick}
             >
               ✓

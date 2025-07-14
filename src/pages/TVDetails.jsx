@@ -8,6 +8,7 @@ import {
   getShowTrailers,
 } from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
+import { useAuth } from "../context/AuthContext";
 import MovieCard from "../components/MovieCard";
 import ShowCard from "../components/ShowCard";
 import noProfilePicture from "../assets/no-profile-picture.jpg";
@@ -21,6 +22,7 @@ function TVDetails() {
   const [recommendedShows, setRecommendedShows] = useState(null);
   const [seriesBackdrop, setSeriesBackdrop] = useState(null);
   const [seriesTrailers, setSeriesTrailers] = useState(null);
+  const { isAuthenticated } =  useAuth();
   const [loading, setLoading] = useState(true);
 
   // scrolling
@@ -80,6 +82,13 @@ function TVDetails() {
 
   function onFavoriteClick(e) {
     e.preventDefault();
+    // check if the user is authenticated to add to favorites
+    if(!isAuthenticated){
+      alert("Please log in to add to favorites!");
+      return;
+    }
+
+    // authenticated user - proceed with adding/removing from favorites
     if (series && isFavorite(series.id)) {
       removeFromFavorites(series.id);
     } else if (series) {
@@ -89,6 +98,13 @@ function TVDetails() {
   // adding series to watch later list
   function onWatchLaterClick(e) {
     e.preventDefault();
+    // check if user is authenticated to add to watch later
+    if(!isAuthenticated){
+      alert("Please log in ot add to watch later!");
+      return;
+    }
+
+    // authenticated user - proceed with adding/removing from watch later
     if (series && isWatchLater(series.id)) {
       removeFromWatchLater(series.id);
     } else if (series) {
@@ -160,7 +176,7 @@ function TVDetails() {
             <div className="buttons">
               <button
                 className={`favorite-in-card ${
-                  isFavorite(series.id) ? "active" : ""
+                  isAuthenticated ? (isFavorite(series.id) ? "active" : "") : ("")
                 }`}
                 onClick={onFavoriteClick}
               >
@@ -168,7 +184,7 @@ function TVDetails() {
               </button>
               <button
                 className={`favorite-in-card ${
-                  isWatchLater(series.id) ? "active" : ""
+                  isAuthenticated ? (isWatchLater(series.id) ? "active" : "") : ("")
                 }`}
                 onClick={onWatchLaterClick}
               >
