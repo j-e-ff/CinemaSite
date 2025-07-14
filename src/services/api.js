@@ -98,6 +98,12 @@ export const getMovieTrailers = async (movie_id) => {
   );
 };
 
+export const getMovieReviews = async(movie_id) => {
+  const response = await fetch(`${BASE_URL}/movie/${movie_id}/reviews?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data.results;
+}
+
 // SERIES ENDPOINTS 
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
