@@ -1,14 +1,22 @@
 import "../css/MovieCard.css";
 import { useMovieContext } from "../context/MovieContext";
+import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 function MovieCard({ movie }) {
   //can grab all these values because entire app was wrapped in MovieProvider
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  const { isAuthenticated } = useAuth();
   const favorite = isFavorite(movie.id);
 
   function onFavoriteClick(e) {
     e.preventDefault();
+    // Check if user is authenticated before allowing list operations
+    if (!isAuthenticated) {
+      alert("Please log in to add movies to your lists!");
+      return;
+    }
+
     if (favorite) removeFromFavorites(movie.id);
     else addToFavorites(movie);
   }
@@ -22,8 +30,11 @@ function MovieCard({ movie }) {
         />
         <div className="movie-overlay">
           <button
-            className={`favorite-btn ${favorite ? "active" : ""}`}
+            className={`favorite-btn ${isAuthenticated ? (favorite ? "active" : "") : ("")}`}
             onClick={onFavoriteClick}
+            title={
+              isAuthenticated ? "Add to favorites" : "Login to add to favorites"
+            }
           >
             ♥
           </button>

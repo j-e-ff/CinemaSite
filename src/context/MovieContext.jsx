@@ -1,74 +1,74 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { db } from "../services/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useAuth } from "./AuthContext";
 
 const MovieContext = createContext();
 
 export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieProvider = ({ children }) => {
+  const { user } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [watchLater, setWatchLater] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load favorites from localStorage on app start
+  // Sync lists with Firestore when user logs in
   useEffect(() => {
-    try {
-      const storedFavs = localStorage.getItem("favorites");
-      const storedWatchLater = localStorage.getItem("watch-later");
-      console.log("Loading from localStorage:", storedFavs);
-      console.log("Loading from localStorage:", storedWatchLater);
-      if (storedFavs) {
-        const parsedFavs = JSON.parse(storedFavs);
-        console.log("Parsed favorites:", parsedFavs);
-        if (Array.isArray(parsedFavs)) {
-          setFavorites(parsedFavs);
-          console.log("Set favorites from localStorage:", parsedFavs);
-        }
-      }
-      if (storedWatchLater) {
-        const parsedWatchLater = JSON.parse(storedWatchLater);
-        console.log("Parsed watch later:", parsedWatchLater);
-        if (Array.isArray(parsedWatchLater)) {
-          setWatchLater(parsedWatchLater);
-          console.log("Set watch later from localStorage:", parsedWatchLater);
-        }
-      }
-      setIsLoaded(true);
-    } catch (error) {
-      console.error(
-        "Error loading favorites or watch later from localStorage:",
-        error
-      );
-      setIsLoaded(true);
+    // user is not logged in, clear lists
+    if (!user) {
+      setFavorites([]);
+      setWatchLater([]);
+      setIsLoaded(false);
+      return;
     }
-  }, []);
-
-  // Save favorites to localStorage whenever favorites change
-  useEffect(() => {
-    if (isLoaded) {
-      // Only save after initial load to prevent overwriting
+    // user is logged in - load lists from Firestore
+    const fetchData = async () => {
       try {
-        console.log("Saving to localStorage:", favorites);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        console.log("Successfully saved to localStorage");
+        console.log("Fetching user data for:", user.uid);
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          console.log("Found user data:", data);
+          setFavorites(data.favorites || []);
+          setWatchLater(data.watchLater || []);
+        } else {
+          console.log(
+            "No existing user document found, starting with empty lists"
+          );
+          setFavorites([]);
+          setWatchLater([]);
+        }
+        setIsLoaded(true);
       } catch (error) {
-        console.error("Error saving favorites to localStorage:", error);
+        console.error("Error fetching user data:", error);
+        setIsLoaded(true);
       }
-    }
-  }, [favorites, isLoaded]);
+    };
+    fetchData();
+  }, [user]);
 
-  //saving watch later list to localStorage
+  // Save lists to Firestore whenever they change
   useEffect(() => {
-    if (isLoaded) {
-      // Only save after initial load to prevent overwriting
-      try {
-        console.log("Saving to localStorage:", watchLater);
-        localStorage.setItem("watch-later", JSON.stringify(watchLater));
-        console.log("Successfully saved to localStorage");
-      } catch (error) {
-        console.error("Error saving favorites to localStorage:", error);
-      }
+    if (!user || !isLoaded) {
+      console.log("Skipping save - user:", !!user, "isLoaded:", isLoaded);
+      return; // only save if user logged in
     }
-  }, [watchLater, isLoaded]);
+    const saveData = async () => {
+      try {
+        console.log("Saving to Firestore:", { favorites, watchLater });
+        await setDoc(
+          doc(db, "users", user.uid),
+          { favorites, watchLater },
+          { merge: true }
+        );
+        console.log("Successfully saved to Firestore");
+      } catch (error) {
+        console.error("Error saving user data:", error);
+      }
+    };
+    saveData();
+  }, [favorites, watchLater, user, isLoaded]);
 
   //operations for list
   const addToFavorites = (movie) => {
