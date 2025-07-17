@@ -217,6 +217,14 @@ export const getShowRated = async (series_id) =>{
   return usRating?.rating||"Not Rated";
 };
 
+export const getShowReviews = async (series_id) => {
+  const response = await fetch(
+    `${BASE_URL}/tv/${series_id}/reviews?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+
 // PEOPLE ENDPOINTS
 export const getPeople = async (person_id) => {
   const response = await fetch(

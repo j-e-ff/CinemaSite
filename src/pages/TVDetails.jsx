@@ -202,9 +202,15 @@ function TVDetails() {
                   {isWatchLater(series.id) ? "watch_later" : "watch_later"}
                 </span>
               </button>
+              <Link
+              to={`/comments/tv/${series.id}`}
+              key={series.id}
+              className="cast-card"
+            >
               <button className="comment-button active">
                 <span class="material-icons-outlined">comment</span>
               </button>
+            </Link>
             </div>
           </div>
           <p>
