@@ -87,13 +87,16 @@
 
 /*button css*/
 .favorite-in-card {
-  background-color: white;
+  background-color: rgb(164, 164, 164);
   color: black;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  margin-bottom: 10px;
 }
 
 .favorite-in-card.active {
@@ -160,4 +163,21 @@
 
 .scroll-btn-right {
   right: 0;
+}
+
+.material-icons{
+  font-size:22px;
+}
+
+.comment-button{
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }

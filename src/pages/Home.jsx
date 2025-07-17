@@ -155,22 +155,27 @@ function Home() {
     <div className="home">
       {/* SEARCH SECTION */}
       <form onSubmit={handleSearch} className="search-form">
+        <span className="search-icon material-icons">search</span>
         <input
           type="text"
-          placeholder="Seach for movies..."
+          placeholder={"Seach for movies or shows..."}
           className="search-input"
           value={searchQuery}
           onChange={handleSearchQueryChange}
         ></input>
-        <button className={`search-button `}>
-          Search
-        </button>
+        <button className={`search-button `}>Search</button>
       </form>
       <div className="type-container">
-        <button className={`toggle-movie-button ${movieToggle ? "disabled" : ""}`} onClick={movieClick}>
+        <button
+          className={`toggle-movie-button ${movieToggle ? "disabled" : ""}`}
+          onClick={movieClick}
+        >
           Movie
         </button>
-        <button className={`toggle-show-button ${movieToggle ? "" : "disabled" }`} onClick={tvClick}>
+        <button
+          className={`toggle-show-button ${movieToggle ? "" : "disabled"}`}
+          onClick={tvClick}
+        >
           TV
         </button>
       </div>

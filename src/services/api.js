@@ -98,13 +98,29 @@ export const getMovieTrailers = async (movie_id) => {
   );
 };
 
-export const getMovieReviews = async(movie_id) => {
-  const response = await fetch(`${BASE_URL}/movie/${movie_id}/reviews?api_key=${API_KEY}`);
+export const getMovieReviews = async (movie_id) => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movie_id}/reviews?api_key=${API_KEY}`
+  );
   const data = await response.json();
   return data.results;
-}
+};
 
-// SERIES ENDPOINTS 
+export const getMovieRated = async (movie_id) => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movie_id}/release_dates?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+
+  const usRelease = data.results.find((entry) => entry.iso_3166_1 === "US");
+
+  if (!usRelease) return "N/A";
+
+  const rating = usRelease.release_dates.find((r) => r.certification !== "");
+  return rating?.certification || "N/A";
+};
+
+// SERIES ENDPOINTS
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
   const data = await response.json();
@@ -189,6 +205,16 @@ export const getShowTrailers = async (series_id) => {
   return data.results.filter(
     (video) => video.type === "Trailer" && video.site === "YouTube"
   );
+};
+
+export const getShowRated = async (series_id) =>{
+  const response = await fetch(
+    `${BASE_URL}/tv/${series_id}/content_ratings?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+
+  const usRating = data.results.find((entry) => entry.iso_3166_1 === "US");
+  return usRating?.rating||"Not Rated";
 };
 
 // PEOPLE ENDPOINTS

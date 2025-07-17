@@ -6,6 +6,7 @@ import {
   getShowRecommendations,
   getSeriesImages,
   getShowTrailers,
+  getShowRated,
 } from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
 import { useAuth } from "../context/AuthContext";
@@ -22,7 +23,8 @@ function TVDetails() {
   const [recommendedShows, setRecommendedShows] = useState(null);
   const [seriesBackdrop, setSeriesBackdrop] = useState(null);
   const [seriesTrailers, setSeriesTrailers] = useState(null);
-  const { isAuthenticated } =  useAuth();
+  const [rating, setRating] = useState(null);
+  const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
   // scrolling
@@ -83,7 +85,7 @@ function TVDetails() {
   function onFavoriteClick(e) {
     e.preventDefault();
     // check if the user is authenticated to add to favorites
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       alert("Please log in to add to favorites!");
       return;
     }
@@ -99,7 +101,7 @@ function TVDetails() {
   function onWatchLaterClick(e) {
     e.preventDefault();
     // check if user is authenticated to add to watch later
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       alert("Please log in ot add to watch later!");
       return;
     }
@@ -120,6 +122,7 @@ function TVDetails() {
         const recommendations = await getShowRecommendations(id);
         const images = await getSeriesImages(id);
         const trailers = await getShowTrailers(id);
+        const seriesRating = await getShowRated(id);
         // Selecting random backdrop from seriesImages
         if (images.backdrops && images.backdrops.length > 0) {
           const randomIndex = Math.floor(
@@ -134,6 +137,7 @@ function TVDetails() {
         setSeries(seriesData);
         setTVCredit(seriesCredits);
         setSeriesTrailers(trailers);
+        setRating(seriesRating);
       } catch (error) {
         console.log(error);
       } finally {
@@ -176,19 +180,30 @@ function TVDetails() {
             <div className="buttons">
               <button
                 className={`favorite-in-card ${
-                  isAuthenticated ? (isFavorite(series.id) ? "active" : "") : ("")
+                  isAuthenticated ? (isFavorite(series.id) ? "active" : "") : ""
                 }`}
                 onClick={onFavoriteClick}
               >
-                ♥
+                <span className="material-icons">
+                  {isFavorite(series.id) ? "favorite" : "favorite_border"}
+                </span>
               </button>
               <button
                 className={`favorite-in-card ${
-                  isAuthenticated ? (isWatchLater(series.id) ? "active" : "") : ("")
+                  isAuthenticated
+                    ? isWatchLater(series.id)
+                      ? "active"
+                      : ""
+                    : ""
                 }`}
                 onClick={onWatchLaterClick}
               >
-                ✓
+                <span className="material-icons">
+                  {isWatchLater(series.id) ? "watch_later" : "watch_later"}
+                </span>
+              </button>
+              <button className="comment-button active">
+                <span class="material-icons-outlined">comment</span>
               </button>
             </div>
           </div>
@@ -215,7 +230,12 @@ function TVDetails() {
             {series.episode_run_time} minutes
           </p>
           <p>
-            <strong> Rating:</strong> {Math.round(series.vote_average * 10)}%
+            <strong>Rating: </strong>
+            {rating}
+          </p>
+          <p>
+            <strong>TMDB Rating:</strong> {Math.round(series.vote_average * 10)}
+            %
           </p>
           <p>
             <strong>Number of Episodes:</strong> {series.number_of_episodes}
@@ -264,7 +284,7 @@ function TVDetails() {
           onClick={scrollToPrev}
           disabled={!canScrollLeft}
         >
-          <h3>&lt;</h3>
+          <span class="material-icons-outlined">navigate_before</span>
         </button>
         {tvCredit.cast.map((actor) => (
           <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">
@@ -297,7 +317,7 @@ function TVDetails() {
           onClick={scrollToNext}
           disabled={!canScrollRight}
         >
-          &gt;
+          <span class="material-icons-outlined">navigate_next</span>
         </button>
       </div>
       <div className="recommendations">
@@ -314,6 +334,6 @@ function TVDetails() {
       </div>
     </div>
   );
-}
+};
 
 export default TVDetails;

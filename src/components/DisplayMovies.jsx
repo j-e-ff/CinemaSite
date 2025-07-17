@@ -38,7 +38,7 @@ const DisplayMovies = ({
         behavior: "smooth",
       });
       // Wait for smooth scroll to finish
-      setTimeout(checkScrollPosition, 350); 
+      setTimeout(checkScrollPosition, 350);
     }
   };
 
@@ -50,7 +50,7 @@ const DisplayMovies = ({
         behavior: "smooth",
       });
       // Wait for smooth scroll to finish
-      setTimeout(checkScrollPosition, 350); 
+      setTimeout(checkScrollPosition, 350);
     }
   };
 
@@ -64,7 +64,7 @@ const DisplayMovies = ({
           onClick={scrollToPrev}
           disabled={!canScrollLeft}
         >
-          <h3>&lt;</h3>
+          <span class="material-icons-outlined">navigate_before</span>
         </button>
       )}
       <div className={`movies-list movies-list-${sectionId}`}>
@@ -84,7 +84,7 @@ const DisplayMovies = ({
           onClick={scrollToNext}
           disabled={!canScrollRight}
         >
-          <h3>&gt;</h3>
+          <span class="material-icons-outlined">navigate_next</span>
         </button>
       )}
     </div>

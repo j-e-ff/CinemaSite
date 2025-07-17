@@ -33,7 +33,7 @@ function ShowCard({ movie }) {
         <h3>{movie.name}</h3>
         <p className="movie-grid-detail">
           <span>{movie.first_air_date?.split("-")[0]}</span>
-          <span>{Math.round(movie.vote_average * 10)}</span>
+          <span>{Math.round(movie.vote_average * 10)}%</span>
         </p>
       </div>
     </Link>

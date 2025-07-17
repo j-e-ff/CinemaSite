@@ -5,6 +5,7 @@ import {
   getMovieCredits,
   getMovieRecommendations,
   getMovieTrailers,
+  getMovieRated,
 } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import "../css/MovieDetails.css";
@@ -21,6 +22,7 @@ function MovieDetails() {
   const [recommendedMovies, setRecommendedMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [trailers, setTrailers] = useState(null);
+  const [rating, setRating] = useState(null);
   const { isAuthenticated } = useAuth();
 
   // scrolling
@@ -45,7 +47,7 @@ function MovieDetails() {
       alert("please log in to add movies to favorites!");
       return;
     }
-  
+
     if (movie && isFavorite(movie.id)) {
       removeFromFavorites(movie.id);
     } else if (movie) {
@@ -96,7 +98,7 @@ function MovieDetails() {
         behavior: "smooth",
       });
       // Wait for smooth scroll to finish
-      setTimeout(checkScrollPosition, 350); 
+      setTimeout(checkScrollPosition, 350);
     }
   };
 
@@ -108,7 +110,7 @@ function MovieDetails() {
         behavior: "smooth",
       });
       // Wait for smooth scroll to finish
-      setTimeout(checkScrollPosition, 350); 
+      setTimeout(checkScrollPosition, 350);
     }
   };
 
@@ -119,10 +121,12 @@ function MovieDetails() {
         const movieCredits = await getMovieCredits(id);
         const recommendations = await getMovieRecommendations(id);
         const movieTrailers = await getMovieTrailers(id);
+        const movieRating = await getMovieRated(id);
         setTrailers(movieTrailers);
         setRecommendedMovies(recommendations);
         setMovie(movieData);
         setCredits(movieCredits);
+        setRating(movieRating);
       } catch (error) {
         console.log(error);
       } finally {
@@ -161,19 +165,39 @@ function MovieDetails() {
               ({new Date(movie.release_date).getFullYear()})
             </span>
           </h1>
+          {/* BUTTONS */}
           <div className="buttons">
             <button
-              className={`favorite-in-card ${isAuthenticated ? (isFavorite(movie.id) ? "active" : "") : ("")}`}
+              className={`favorite-in-card ${
+                isAuthenticated ? (isFavorite(movie.id) ? "active" : "") : ""
+              }`}
               onClick={onFavoriteClick}
+              aria-label="Favorite"
             >
-              ♥
+              <span className="material-icons">
+                {isFavorite(movie.id) ? "favorite" : "favorite_border"}
+              </span>
             </button>
             <button
-              className={`favorite-in-card ${isAuthenticated ? (isWatchLater(movie.id) ? "active" : "") : ("")}`}
+              className={`favorite-in-card ${
+                isAuthenticated ? (isWatchLater(movie.id) ? "active" : "") : ""
+              }`}
               onClick={onWatchLaterClick}
+              aria-label="Watch Later"
             >
-              ✓
+              <span className="material-icons">
+                {isWatchLater(movie.id) ? "watch_later" : "watch_later"}
+              </span>
             </button>
+            <Link
+              to={`/comments/movie/${movie.id}`}
+              key={movie.id}
+              className="cast-card"
+            >
+              <button className="comment-button active">
+                <span class="material-icons-outlined">comment</span>
+              </button>
+            </Link>
           </div>
           <p>
             <strong>Overview:</strong>
@@ -188,7 +212,10 @@ function MovieDetails() {
             {movie.release_date}
           </p>
           <p>
-            <strong>Rating: </strong>
+            <strong>Rating: </strong> {rating}
+          </p>
+          <p>
+            <strong> TMDB Rating: </strong>
             {Math.round(movie.vote_average * 10)}%
           </p>
           <p>
@@ -227,14 +254,14 @@ function MovieDetails() {
         <span className="cast-title">Cast</span>
         <div className="cast-list">
           <button
-          className={`cast-scroll-btn  scroll-btn-left ${
-            !canScrollLeft ? "disabled" : ""
-          }`}
-          onClick={scrollToPrev}
-          disabled={!canScrollLeft}
-        >
-          <h3>&lt;</h3>
-        </button>
+            className={`cast-scroll-btn  scroll-btn-left ${
+              !canScrollLeft ? "disabled" : ""
+            }`}
+            onClick={scrollToPrev}
+            disabled={!canScrollLeft}
+          >
+            <span class="material-icons-outlined">navigate_before</span>
+          </button>
           {credit.cast.map((actor) => (
             <Link
               to={`/actor/${actor.id}`}
@@ -256,14 +283,14 @@ function MovieDetails() {
             </Link>
           ))}
           <button
-          className={`cast-scroll-btn scroll-btn-right ${
-            !canScrollRight ? "disabled" : ""
-          }`}
-          onClick={scrollToNext}
-          disabled={!canScrollRight}
-        >
-          <h3>&gt;</h3>
-        </button>
+            className={`cast-scroll-btn scroll-btn-right ${
+              !canScrollRight ? "disabled" : ""
+            }`}
+            onClick={scrollToNext}
+            disabled={!canScrollRight}
+          >
+            <span class="material-icons-outlined">navigate_next</span>
+          </button>
         </div>
       </div>
       {/* MOVIE RECCOMENDATIONS */}
@@ -281,6 +308,6 @@ function MovieDetails() {
       </div>
     </div>
   );
-}
+}; 
 
 export default MovieDetails;

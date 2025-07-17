@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./context/MovieContext";
 import { AuthProvider } from "./context/AuthContext";
 import ActorsPage from "./pages/ActorsPage";
+import CommentsPage from "./pages/CommentsPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/tv/:id" element={<TVDetails />} />
             <Route path="/actor/:id" element={<ActorsPage />} />
+            <Route path="/comments/:item_type/:item_id" element={<CommentsPage/>}/>
           </Routes>
         </main>
       </MovieProvider>
