@@ -30,13 +30,17 @@ function MovieCard({ movie }) {
         />
         <div className="movie-overlay">
           <button
-            className={`favorite-btn ${isAuthenticated ? (favorite ? "active" : "") : ("")}`}
+            className={`favorite-btn ${
+              isAuthenticated ? (favorite ? "active" : "") : ""
+            }`}
             onClick={onFavoriteClick}
             title={
               isAuthenticated ? "Add to favorites" : "Login to add to favorites"
             }
           >
-            ♥
+            <span className="material-icons">
+              {isFavorite(movie.id) ? "favorite" : "favorite_border"}
+            </span>
           </button>
         </div>
       </div>

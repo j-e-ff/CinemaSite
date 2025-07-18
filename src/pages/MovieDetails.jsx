@@ -172,7 +172,7 @@ function MovieDetails() {
                 isAuthenticated ? (isFavorite(movie.id) ? "active" : "") : ""
               }`}
               onClick={onFavoriteClick}
-              aria-label="Favorite"
+              aria-label="favorite"
             >
               <span className="material-icons">
                 {isFavorite(movie.id) ? "favorite" : "favorite_border"}
@@ -190,12 +190,12 @@ function MovieDetails() {
               </span>
             </button>
             <Link
-              to={`/comments/movie/${movie.id}`}
+              to={`/reviews/movie/${movie.id}`}
               key={movie.id}
-              className="cast-card"
+              className="review-link"
             >
-              <button className="comment-button active">
-                <span class="material-icons-outlined">comment</span>
+              <button className="comment-button">
+                <span class="material-icons-outlined">reviews</span>
               </button>
             </Link>
           </div>
@@ -308,6 +308,6 @@ function MovieDetails() {
       </div>
     </div>
   );
-}; 
+}
 
 export default MovieDetails;

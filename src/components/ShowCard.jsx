@@ -25,7 +25,9 @@ function ShowCard({ movie }) {
             className={`favorite-btn ${favorite ? "active" : ""}`}
             onClick={onFavoriteClick}
           >
-            ♥
+            <span className="material-icons">
+              {isFavorite(movie.id) ? "favorite" : "favorite_border"}
+            </span>
           </button>
         </div>
       </div>

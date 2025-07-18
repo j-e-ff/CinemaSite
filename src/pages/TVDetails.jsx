@@ -203,12 +203,12 @@ function TVDetails() {
                 </span>
               </button>
               <Link
-              to={`/comments/tv/${series.id}`}
+              to={`/reviews/tv/${series.id}`}
               key={series.id}
-              className="cast-card"
+              className="review-link"
             >
               <button className="comment-button active">
-                <span class="material-icons-outlined">comment</span>
+                <span class="material-icons-outlined">reviews</span>
               </button>
             </Link>
             </div>
