@@ -139,6 +139,13 @@ function MovieDetails() {
   if (loading) return <div>Loading movie details...</div>;
   if (!movie) return <div>Error, movie not found</div>;
 
+  const directorNames =
+    credit && credit.crew
+      ? credit.crew
+          .filter((member) => member.job === "Director")
+          .map((d) => d.name)
+          .join(", ")
+      : "Unknown";
   return (
     <div>
       {/* MOVIE INFORMATION */}
@@ -177,6 +184,7 @@ function MovieDetails() {
               <span className="material-icons">
                 {isFavorite(movie.id) ? "favorite" : "favorite_border"}
               </span>
+              <span className="tooltip-text"> add to Favorites </span>
             </button>
             <button
               className={`favorite-in-card ${
@@ -188,6 +196,7 @@ function MovieDetails() {
               <span className="material-icons">
                 {isWatchLater(movie.id) ? "watch_later" : "watch_later"}
               </span>
+              <span className="tooltip-text"> add to watch later </span>
             </button>
             <Link
               to={`/reviews/movie/${movie.id}`}
@@ -196,6 +205,7 @@ function MovieDetails() {
             >
               <button className="comment-button">
                 <span class="material-icons-outlined">reviews</span>
+                <span className="tooltip-text"> see reviews </span>
               </button>
             </Link>
           </div>
@@ -203,6 +213,10 @@ function MovieDetails() {
             <strong>Overview:</strong>
           </p>
           <p>{movie.overview}</p>
+          <p>
+            <strong>Director: </strong>
+            {directorNames}
+          </p>
           <p>
             <strong>Runtime: </strong>
             {movie.runtime} minutes

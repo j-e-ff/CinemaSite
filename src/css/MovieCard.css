@@ -129,3 +129,24 @@
     font-size: 1.2rem;
   }
 }
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 110%;
+  transform: translateY(-210%);
+  background: #222;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.favorite-in-card:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

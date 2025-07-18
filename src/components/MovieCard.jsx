@@ -41,6 +41,7 @@ function MovieCard({ movie }) {
             <span className="material-icons">
               {isFavorite(movie.id) ? "favorite" : "favorite_border"}
             </span>
+            <span className="tooltip-text">add to favorites</span>
           </button>
         </div>
       </div>

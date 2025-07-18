@@ -177,6 +177,7 @@ function TVDetails() {
                 ({new Date(series.first_air_date).getFullYear()})
               </span>
             </h1>
+            {/* BUTTONS */}
             <div className="buttons">
               <button
                 className={`favorite-in-card ${
@@ -187,6 +188,7 @@ function TVDetails() {
                 <span className="material-icons">
                   {isFavorite(series.id) ? "favorite" : "favorite_border"}
                 </span>
+                <span className="tooltip-text">add to favorites</span>
               </button>
               <button
                 className={`favorite-in-card ${
@@ -201,16 +203,18 @@ function TVDetails() {
                 <span className="material-icons">
                   {isWatchLater(series.id) ? "watch_later" : "watch_later"}
                 </span>
+                <span className="tooltip-text">add to watch later</span>
               </button>
               <Link
-              to={`/reviews/tv/${series.id}`}
-              key={series.id}
-              className="review-link"
-            >
-              <button className="comment-button active">
-                <span class="material-icons-outlined">reviews</span>
-              </button>
-            </Link>
+                to={`/reviews/tv/${series.id}`}
+                key={series.id}
+                className="review-link"
+              >
+                <button className="comment-button active">
+                  <span className="material-icons-outlined">reviews</span>
+                  <span className="tooltip-text">see reviews</span>
+                </button>
+              </Link>
             </div>
           </div>
           <p>
@@ -340,6 +344,6 @@ function TVDetails() {
       </div>
     </div>
   );
-};
+}
 
 export default TVDetails;

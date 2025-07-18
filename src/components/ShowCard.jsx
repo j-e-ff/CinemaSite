@@ -28,6 +28,7 @@ function ShowCard({ movie }) {
             <span className="material-icons">
               {isFavorite(movie.id) ? "favorite" : "favorite_border"}
             </span>
+            <span className="tooltip-text">add to watch later</span>
           </button>
         </div>
       </div>
