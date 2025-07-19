@@ -18,7 +18,7 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/home">Home</Link>
+        <Link to="/">Home</Link>
       </div>
       <div className="navbar-links">
         {user ? (

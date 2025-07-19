@@ -64,7 +64,7 @@ const DisplayMovies = ({
           onClick={scrollToPrev}
           disabled={!canScrollLeft}
         >
-          <span class="material-icons-outlined">navigate_before</span>
+          <span className="material-icons-outlined">navigate_before</span>
         </button>
       )}
       <div className={`movies-list movies-list-${sectionId}`}>
@@ -84,11 +84,11 @@ const DisplayMovies = ({
           onClick={scrollToNext}
           disabled={!canScrollRight}
         >
-          <span class="material-icons-outlined">navigate_next</span>
+          <span className="material-icons-outlined">navigate_next</span>
         </button>
       )}
     </div>
   );
-};
+}
 
 export default DisplayMovies;

@@ -33,12 +33,14 @@ const WhereToWatch = ({ movieId, type }) => {
 
     return (
       <div className="providers-section">
-        <span className="provider-title"><strong>{title}</strong></span>
+        <span className="provider-title">
+          <strong>{title}</strong>
+        </span>
         <div className="provider-container">
           {providersList.map((provider) => (
             <Link
               key={provider.provider_id}
-              to={providers.link}
+              to={provider.link || "#"} // Use provider.link if available, otherwise "#"
               className="provider-item"
               target="_blank"
               rel="noopener noreferrer"

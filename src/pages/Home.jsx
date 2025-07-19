@@ -13,6 +13,7 @@ import {
   searchShows,
 } from "../services/api";
 import "../css/Home.css";
+import Discover from "./Discover";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,6 +35,7 @@ function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [movieToggle, setMovieToggle] = useState(true);
+  const [showDiscover, setShowDiscover] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -99,6 +101,14 @@ function Home() {
       setLoading(false);
     }
   };
+
+  function movieToggleClick(e) {
+    e.preventDefault();
+    setMovieToggle(!movieToggle);
+    if (searchMode && searchQuery.trim()) {
+      handleSearchForType(true);
+    }
+  }
 
   function movieClick(e) {
     e.preventDefault();
@@ -168,22 +178,28 @@ function Home() {
       <div className="type-container">
         <button
           className={`toggle-movie-button ${movieToggle ? "disabled" : ""}`}
-          onClick={movieClick}
+          onClick={movieToggleClick}
         >
-          Movie
+          <span>{!movieToggle ? "Movies" : "TV"}</span>
+          <span className="tooltip-text">
+            click to display {!movieToggle ? "movies" : "shows"}
+          </span>
         </button>
         <button
-          className={`toggle-show-button ${movieToggle ? "" : "disabled"}`}
-          onClick={tvClick}
+          className="genre-btn"
+          onClick={() => setShowDiscover((prev) => !prev)}
         >
-          TV
+          <span>{showDiscover ? "popular" : "by genre"}</span>
+          <span className="tooltip-text"> click to search by genres </span>
         </button>
       </div>
       {/* ERROR */}
       {error && <div className="error-message">{error}</div>}
 
       {/* LOADING */}
-      {loading ? (
+      {showDiscover ? (
+        <Discover />
+      ) : loading ? (
         <div className="loading">Loading...</div>
       ) : (
         <div className="display-container">

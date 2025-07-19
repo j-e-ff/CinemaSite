@@ -120,7 +120,43 @@ export const getMovieRated = async (movie_id) => {
   return rating?.certification || "N/A";
 };
 
+export const getMovieGenres = async () => {
+  const response = await fetch(
+    `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+  );
+  const data = await response.json();
+  return data;
+};
+// discover movies by genere
+export const discoverMoviesByGenre = async (
+  genreIds,
+  sortBy = "popularity.desc",
+  page = 1
+) => {
+  const response = await fetch(
+    `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreIds}&sort_by=${sortBy}&page=${page}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+
 // SERIES ENDPOINTS
+export const getShowGenres = async () => {
+  const response = await fetch(`${BASE_URL}/genre/tv/list?api_key=${API_KEY}`);
+  const data = await response.json();
+  return data;
+};
+
+export const discoverShowsByGenre = async (
+  genreIds,
+  sortBy = "popularity.desc",
+  page = 1
+) => {
+  const response = await fetch( `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreIds}&sort_by=${sortBy}&page=${page}`);
+  const data = await response.json();
+  return data.results;
+};
+
 export const getPopularShows = async () => {
   const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
   const data = await response.json();
@@ -207,14 +243,14 @@ export const getShowTrailers = async (series_id) => {
   );
 };
 
-export const getShowRated = async (series_id) =>{
+export const getShowRated = async (series_id) => {
   const response = await fetch(
     `${BASE_URL}/tv/${series_id}/content_ratings?api_key=${API_KEY}`
   );
   const data = await response.json();
 
   const usRating = data.results.find((entry) => entry.iso_3166_1 === "US");
-  return usRating?.rating||"Not Rated";
+  return usRating?.rating || "Not Rated";
 };
 
 export const getShowReviews = async (series_id) => {
