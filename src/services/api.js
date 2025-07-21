@@ -152,7 +152,9 @@ export const discoverShowsByGenre = async (
   sortBy = "popularity.desc",
   page = 1
 ) => {
-  const response = await fetch( `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreIds}&sort_by=${sortBy}&page=${page}`);
+  const response = await fetch(
+    `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreIds}&sort_by=${sortBy}&page=${page}`
+  );
   const data = await response.json();
   return data.results;
 };

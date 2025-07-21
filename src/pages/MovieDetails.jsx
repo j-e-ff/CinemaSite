@@ -11,8 +11,7 @@ import { useAuth } from "../context/AuthContext";
 import "../css/MovieDetails.css";
 import WhereToWatch from "../components/WhereToWatch";
 import { useMovieContext } from "../context/MovieContext";
-import MovieCard from "../components/MovieCard";
-import ShowCard from "../components/ShowCard";
+import ItemCard from "../components/ItemCard";
 import noProfilePicture from "../assets/no-profile-picture.jpg";
 
 function MovieDetails() {
@@ -313,9 +312,9 @@ function MovieDetails() {
         <div className="recommended-grid">
           {recommendedMovies.map((item) =>
             item.media_type === "movie" ? (
-              <MovieCard movie={item} key={item.id} />
+              <ItemCard item={item} itemType="movie" key={item.id} />
             ) : (
-              <ShowCard movie={item} key={item.id} />
+              <ItemCard item={item} itemType="tv" key={item.id} />
             )
           )}
         </div>

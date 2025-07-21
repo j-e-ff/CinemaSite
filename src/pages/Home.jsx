@@ -91,6 +91,7 @@ function Home() {
         setSearchResults(showResults);
       }
       setSearchMode(true);
+      setShowDiscover(false); // Exit discover mode when searching
       setError(null);
     } catch (err) {
       console.log(err);
@@ -107,22 +108,6 @@ function Home() {
     setMovieToggle(!movieToggle);
     if (searchMode && searchQuery.trim()) {
       handleSearchForType(true);
-    }
-  }
-
-  function movieClick(e) {
-    e.preventDefault();
-    setMovieToggle(true);
-    if (searchMode && searchQuery.trim()) {
-      handleSearchForType(true);
-    }
-  }
-
-  function tvClick(e) {
-    e.preventDefault();
-    setMovieToggle(false);
-    if (searchMode && searchQuery.trim()) {
-      handleSearchForType(false);
     }
   }
 
@@ -180,7 +165,7 @@ function Home() {
           className={`toggle-movie-button ${movieToggle ? "disabled" : ""}`}
           onClick={movieToggleClick}
         >
-          <span>{!movieToggle ? "Movies" : "TV"}</span>
+          <span>{!movieToggle ? "Show Movies" : "Show TV"}</span>
           <span className="tooltip-text">
             click to display {!movieToggle ? "movies" : "shows"}
           </span>
@@ -198,7 +183,10 @@ function Home() {
 
       {/* LOADING */}
       {showDiscover ? (
-        <Discover />
+        <Discover
+          key={movieToggle ? "movies" : "tv"}
+          movieToggle={movieToggle}
+        />
       ) : loading ? (
         <div className="loading">Loading...</div>
       ) : (

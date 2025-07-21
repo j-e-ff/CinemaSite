@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MovieCard from "./MovieCard";
-import ShowCard from "./ShowCard";
+import ItemCard from "./ItemCard";
 import "../css/DisplayMovies.css";
 
 const DisplayMovies = ({
@@ -70,9 +69,9 @@ const DisplayMovies = ({
       <div className={`movies-list movies-list-${sectionId}`}>
         {movieList.map((item) =>
           movieToggle ? (
-            <MovieCard movie={item} key={item.id} />
+            <ItemCard item={item} itemType="movie" key={item.id} />
           ) : (
-            <ShowCard movie={item} key={item.id} />
+            <ItemCard item={item} itemType="tv" key={item.id} />
           )
         )}
       </div>

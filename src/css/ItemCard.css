@@ -1,4 +1,4 @@
-.movie-card {
+.item-card {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -10,23 +10,23 @@
   color:white;
 }
 
-.movie-card:hover {
+.item-card:hover {
   transform: translateY(-5px);
 }
 
-.movie-poster {
+.item-poster {
   position: relative;
   aspect-ratio: 2/3;
   width: 100%;
 }
 
-.movie-poster img {
+.item-poster img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fit;
 }
 
-.movie-overlay {
+.item-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -45,7 +45,7 @@
   padding: 1rem;
 }
 
-.movie-card:hover .movie-overlay {
+.item-card:hover .item-overlay {
   opacity: 1;
 }
 
@@ -84,7 +84,7 @@
   margin-top: 0.5rem;
 }
 
-.movie-info {
+.item-info {
   padding: 1rem;
   flex: 1;
   display: flex;
@@ -92,17 +92,17 @@
   gap: 0.5rem;
 }
 
-.movie-info h3 {
+.item-info h3 {
   font-size: 1rem;
   margin: 0;
 }
 
-.movie-info p {
+.item-info p {
   color: #999;
   font-size: 0.9rem;
 }
 
-.movie-grid-detail {
+.item-grid-detail {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -115,11 +115,11 @@
 }
 
 @media (max-width: 768px) {
-  .movie-card {
+  .item-card {
     font-size: 0.9rem;
   }
 
-  .movie-info {
+  .item-info {
     padding: 0.75rem;
   }
 
@@ -150,3 +150,4 @@
   visibility: visible;
   opacity: 1;
 }
+

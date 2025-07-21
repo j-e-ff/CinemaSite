@@ -1,0 +1,16 @@
+.discover-container{
+    color: white;
+}
+
+.dropdown{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.basic-multi-select{
+    min-width:200px;
+    max-width:500px;
+    color:black;
+}
+

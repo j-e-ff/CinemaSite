@@ -10,8 +10,7 @@ import {
 } from "../services/api";
 import { useMovieContext } from "../context/MovieContext";
 import { useAuth } from "../context/AuthContext";
-import MovieCard from "../components/MovieCard";
-import ShowCard from "../components/ShowCard";
+import ItemCard from "../components/ItemCard";
 import noProfilePicture from "../assets/no-profile-picture.jpg";
 import WhereToWatch from "../components/WhereToWatch";
 import "../css/TVDetails.css";
@@ -294,7 +293,7 @@ function TVDetails() {
           onClick={scrollToPrev}
           disabled={!canScrollLeft}
         >
-          <span class="material-icons-outlined">navigate_before</span>
+          <span className="material-icons-outlined">navigate_before</span>
         </button>
         {tvCredit.cast.map((actor) => (
           <Link to={`/actor/${actor.id}`} key={actor.id} className="cast-card">
@@ -309,15 +308,18 @@ function TVDetails() {
             <p>
               <strong>{actor.name}</strong>
             </p>
-            <p>
+            <div>
               {actor.roles && actor.roles.length > 0 ? (
                 actor.roles.map((roles, index) => (
-                  <p key={index}>{roles.character}</p>
+                  <p key={index}>
+                    {roles.character}
+                    {index < actor.roles.length - 1 ? ", " : ""}
+                  </p>
                 ))
               ) : (
-                <p>character information not available</p>
+                <span>character information not available</span>
               )}
-            </p>
+            </div>
           </Link>
         ))}
         <button
@@ -335,9 +337,9 @@ function TVDetails() {
         <div className="recommended-grid">
           {recommendedShows.map((item) =>
             item.media_type === "movie" ? (
-              <MovieCard movie={item} key={item.id} />
+              <ItemCard item={item} itemType="movie" key={item.id} />
             ) : (
-              <ShowCard movie={item} key={item.id} />
+              <ItemCard item={item} itemType="tv" key={item.id} />
             )
           )}
         </div>

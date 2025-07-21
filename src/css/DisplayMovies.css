@@ -23,7 +23,7 @@
 }
 
 /* Ensure movie cards have consistent width in horizontal scroll */
-.movies-list .movie-card {
+.movies-list .item-card {
   min-width: none;
   max-width: 250px;
   flex-shrink: 0;
@@ -77,4 +77,5 @@
   box-sizing: border-box;
   gap: 1rem;
 }
+
 

@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
-import { discoverMoviesByGenre, getMovieGenres } from "../services/api";
+import {
+  discoverMoviesByGenre,
+  getMovieGenres,
+  discoverShowsByGenre,
+  getShowGenres,
+} from "../services/api";
 import DisplayMovies from "../components/DisplayMovies";
-import React from "react";
 import Select from "react-select";
+import "../css/Discover.css";
 
-function Discover() {
+function Discover({ movieToggle }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const [selectedSort, setSelectedSort] = useState([
-    { value: "popularity.desc", lable: "popularity descending" },
-  ]);
+  const [selectedSort, setSelectedSort] = useState({
+    value: "popularity.desc",
+    label: "popularity descending",
+  });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -32,23 +38,31 @@ function Discover() {
 
   // fetch genre component
   useEffect(() => {
+    console.log("movieToggle changed to:", movieToggle);
     const fetchGenres = async () => {
       try {
-        const genreData = await getMovieGenres();
+        const genreData = movieToggle
+          ? await getMovieGenres()
+          : await getShowGenres();
         const options = genreData.genres.map((genre) => ({
           value: genre.id.toString(),
           label: genre.name,
         }));
         setGenreOptions(options);
+        // Clear items and reset selected genres when switching between movies and shows
+        setItems([]);
+        setSelectedGenres([]);
       } catch (error) {
         console.error("Error fetching genres:", error);
       }
     };
     fetchGenres();
-  }, []);
+  }, [movieToggle]);
 
   const handleGenreChange = (selectedOptions) => {
-    const genreIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    const genreIds = selectedOptions
+      ? selectedOptions.map((option) => option.value)
+      : [];
     setSelectedGenres(genreIds);
     setPage(1);
   };
@@ -67,32 +81,40 @@ function Discover() {
   };
 
   useEffect(() => {
+    // Set default genre if none selected
     if (selectedGenres.length === 0) {
-      setSelectedGenres(["28"]); // default to action
+      const defaultGenre = movieToggle ? "28" : "10759"; // default to action
+      setSelectedGenres([defaultGenre]);
       return;
     }
 
     const genreString = selectedGenres.join(",");
+    console.log("Fetching data with:", {
+      movieToggle,
+      genreString,
+      sortBy: selectedSort.value,
+      page,
+    });
     setLoading(true);
     async function fetchData() {
       try {
-        const data = await discoverMoviesByGenre(
-          genreString,
-          selectedSort.value,
-          page
-        );
+        const data = movieToggle
+          ? await discoverMoviesByGenre(genreString, selectedSort.value, page)
+          : await discoverShowsByGenre(genreString, selectedSort.value, page);
+        console.log("Fetched data:", data);
         setItems(data);
       } catch (err) {
+        console.error("Error fetching data:", err);
         setItems([]);
       } finally {
         setLoading(false);
       }
     }
     fetchData();
-  }, [selectedGenres, selectedSort, page]);
+  }, [selectedGenres, selectedSort, page, movieToggle]);
 
   return (
-    <div>
+    <div className="discover-container">
       <div className="dropdown">
         <h2>Select Genres</h2>
         <Select
@@ -102,6 +124,34 @@ function Discover() {
           placeholder="Selected Genres..."
           className="basic-multi-select"
           classNamePrefix="select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: "lightblue",
+              primary: "black",
+            },
+          })}
+          styles={{
+            multiValue: (base) => ({
+              ...base,
+              backgroundColor: "rgb(38,135,196)",
+              color: "white",
+            }),
+            multiValueLabel: (base) => ({
+              ...base,
+              color: "white",
+            }),
+            multiValueRemove: (base) => ({
+              ...base,
+              color: "white",
+              ":hover": {
+                backgroundColor: "rgb(191, 31, 31)",
+                color: "white",
+              },
+            }),
+          }}
         />
         <h2>Sort by</h2>
         <Select
@@ -110,14 +160,23 @@ function Discover() {
           placeholder="Sort by..."
           className="basic-multi-select"
           classNamePrefix="select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: "lightblue",
+              primary: "rgb(43, 162, 235)",
+            },
+          })}
         />
       </div>
-      <h3>Movies</h3>
+      <h3>{movieToggle ? "Movies" : "TV"}</h3>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <DisplayMovies
-          movieToggle={true}
+          movieToggle={movieToggle}
           movieList={items}
           sectionId="discover"
           isSearch={true}

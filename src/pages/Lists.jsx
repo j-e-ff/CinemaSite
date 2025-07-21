@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMovieContext } from "../context/MovieContext";
-import MovieCard from "../components/MovieCard";
-import ShowCard from "../components/ShowCard";
+import ItemCard from "../components/ItemCard";
 import "../css/Lists.css";
 
 function Lists() {
@@ -25,9 +24,9 @@ function Lists() {
             .filter((item) => item && item.id) // Filter out any null/undefined items
             .map((item) =>
               item.title ? (
-                <MovieCard movie={item} key={item.id} />
+                <ItemCard item={item} itemType="movie" key={item.id} />
               ) : (
-                <ShowCard movie={item} key={item.id} />
+                <ItemCard item={item} itemType="tv" key={item.id} />
               )
             )}    
         </div>
