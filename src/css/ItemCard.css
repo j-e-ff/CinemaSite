@@ -7,7 +7,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  color:white;
+  color: white;
 }
 
 .item-card:hover {
@@ -72,6 +72,23 @@
 
 .favorite-btn.active {
   color: #ff4757;
+}
+
+.circular-progress {
+  position: absolute;
+  bottom: 19.5rem;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  opacity: 1;
 }
 
 .rating-select {
@@ -150,4 +167,3 @@
   visibility: visible;
   opacity: 1;
 }
-

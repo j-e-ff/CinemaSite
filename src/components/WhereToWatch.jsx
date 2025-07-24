@@ -28,7 +28,7 @@ const WhereToWatch = ({ movieId, type }) => {
 
   if (loading) return <div>Loading providers...</div>;
 
-  const renderProvidersSection = (title, providersList) => {
+  const renderProvidersSection = (title, providersList, providerLink) => {
     if (!providersList || providersList.length === 0) return null;
 
     return (
@@ -37,21 +37,27 @@ const WhereToWatch = ({ movieId, type }) => {
           <strong>{title}</strong>
         </span>
         <div className="provider-container">
-          {providersList.map((provider) => (
-            <Link
-              key={provider.provider_id}
-              to={provider.link || "#"} // Use provider.link if available, otherwise "#"
-              className="provider-item"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>{provider.name}</span>
-              <img
-                src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                alt={provider.name}
-              />
-            </Link>
-          ))}
+          {providersList.map(
+            (provider) => (
+              console.log("Provider:", provider),
+              console.log("Provider Link:", provider.link),
+              (
+                <Link
+                  key={provider.provider_id}
+                  to={providerLink || "#"}
+                  className="provider-item"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{provider.name}</span>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                    alt={provider.name}
+                  />
+                </Link>
+              )
+            )
+          )}
         </div>
       </div>
     );
@@ -60,16 +66,21 @@ const WhereToWatch = ({ movieId, type }) => {
   return (
     <div className="providers-section">
       <h2 className="left-title">JustWatch</h2>
+      <script async src="https://widget.justwatch.com/justwatch_widget.js"></script>
       {providers &&
       (providers.flatrate?.length > 0 ||
         providers.free?.length > 0 ||
         providers.rent?.length > 0 ||
         providers.buy?.length > 0) ? (
         <div>
-          {renderProvidersSection("Streaming: ", providers.flatrate)}
-          {renderProvidersSection("Free", providers.free)}
-          {renderProvidersSection("Rent: ", providers.rent)}
-          {renderProvidersSection("Purchase: ", providers.buy)}
+          {renderProvidersSection(
+            "Streaming: ",
+            providers.flatrate,
+            providers.link
+          )}
+          {renderProvidersSection("Free", providers.free, providers.link)}
+          {renderProvidersSection("Rent: ", providers.rent, providers.link)}
+          {renderProvidersSection("Purchase: ", providers.buy, providers.link)}
         </div>
       ) : (
         <div>

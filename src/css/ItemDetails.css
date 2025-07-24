@@ -1,4 +1,8 @@
-.movie-details {
+.left-section .buttons{
+  justify-content: center;
+}
+
+.item-details {
   color: white;
   display: flex;
   gap: 2rem;
@@ -9,11 +13,17 @@
   background-color: #121212;
 }
 
-.movie-details p {
+.item-image {
+  height: 580px;
+  margin-top: 12px;
+  margin-left: 12px;
+}
+
+.item-details p {
   margin-bottom: 5px;
 }
 
-.movie-details::before {
+.item-details::before {
   content: "";
   position: absolute;
   top: 0;
@@ -24,7 +34,7 @@
   z-index: 1;
 }
 
-.movie-details > * {
+.item-details > * {
   position: relative;
   z-index: 2; /* Ensure content appears above the overlay */
 }
@@ -86,7 +96,7 @@
 }
 
 /*button css*/
-.favorite-in-card {
+.in-list {
   background-color: rgb(164, 164, 164);
   color: black;
   border-radius: 50%;
@@ -100,8 +110,9 @@
   position: relative;
 }
 
-.favorite-in-card.active {
+.in-list.active {
   color: #ff4757;
+  background-color:white;
 }
 
 .recommendation-title {
@@ -200,7 +211,7 @@
   z-index: 10;
 }
 
-.favorite-in-card:hover .tooltip-text {
+.in-list:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }

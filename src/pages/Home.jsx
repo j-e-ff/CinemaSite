@@ -104,12 +104,13 @@ function Home() {
   };
 
   function movieToggleClick(e) {
-    e.preventDefault();
-    setMovieToggle(!movieToggle);
-    if (searchMode && searchQuery.trim()) {
-      handleSearchForType(true);
-    }
+  e.preventDefault();
+  const newToggle = !movieToggle;
+  setMovieToggle(newToggle);
+  if (searchMode && searchQuery.trim()) {
+    handleSearchForType(newToggle);
   }
+}
 
   const clearSearch = () => {
     setSearchMode(false);
@@ -222,7 +223,7 @@ function Home() {
             <div>
               {/* POPULAR MOVIE SECTION */}
               {movieToggle ? (
-                <h2 className="title">Popular Movies</h2>
+                <h2>Popular Movies</h2>
               ) : (
                 <h2>Popular Shows</h2>
               )}
