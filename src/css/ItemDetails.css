@@ -67,10 +67,13 @@
   width: 203px;
   object-fit: fit;
 }
+
 .title {
   color: white;
   padding-bottom: 20px;
-  text-align: center;
+  text-align: left;
+  font-weight: 900;
+  margin-bottom: 1rem;
 }
 
 .year {
