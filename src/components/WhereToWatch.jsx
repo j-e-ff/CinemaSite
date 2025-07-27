@@ -80,7 +80,7 @@ const WhereToWatch = ({ movieId, type }) => {
           )}
           {renderProvidersSection("Free", providers.free, providers.link)}
           {renderProvidersSection("Rent: ", providers.rent, providers.link)}
-          {renderProvidersSection("Purchase: ", providers.buy, providers.link)}
+          {renderProvidersSection("Buy: ", providers.buy, providers.link)}
         </div>
       ) : (
         <div>

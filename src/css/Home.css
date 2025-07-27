@@ -31,7 +31,7 @@
 
 .search-button {
   padding: 0.75rem 1.5rem;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.903);
   color: black;
   border-radius: 4px;
   font-weight: 500;
@@ -39,10 +39,7 @@
   white-space: nowrap;
 }
 
-.search-button:hover {
-  background-color: #123552;
-  color: white;
-}
+
 
 .type-container {
   display: flex;
@@ -79,7 +76,7 @@
 }
 
 .toggle-movie-button {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.903);
   color: black;
   position: relative;
 }

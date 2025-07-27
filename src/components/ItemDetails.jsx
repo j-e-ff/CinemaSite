@@ -204,7 +204,7 @@ function ItemDetails() {
       >
         <div className="left-section">
           <img
-            src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+            src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
             alt={type === "movie" ? item.title : item.name}
             className="item-image"
           />

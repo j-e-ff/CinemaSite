@@ -5,23 +5,10 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
 }
 
 .navbar a {
   color: white;
-}
-
-
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
-
-.navbar-brand:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-links {
@@ -57,3 +44,45 @@
     padding: 0.5rem;
   }
 }
+
+.logout-btn,
+.login-btn,
+.lists-button,
+.home-button {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.2rem;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #dfdfdf;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  z-index: 10;
+  min-width: max-content;
+  width: max-content;
+}
+
+.home-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+

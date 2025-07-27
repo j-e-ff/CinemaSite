@@ -17,22 +17,27 @@ function NavBar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/">Home</Link>
-      </div>
+      <Link to="/">
+        <button className="home-button">
+          <span>Home</span>
+          <span className="tooltip-text">Click for homepage</span>
+        </button>
+      </Link>
       <div className="navbar-links">
         {user ? (
-          <div>
-            <Link to="/lists" className="nav-link">
-              Lists
+          <div className="buttons-container">
+            <Link to="/lists">
+              <button className="lists-button">
+                <span>Lists</span>
+              </button>
             </Link>
             <button onClick={handleLogout} className="logout-btn">
-              Log out
+              <span>Log out</span>
             </button>
           </div>
         ) : (
           <button onClick={handleLogin} className="login-btn">
-            Login
+            <span>Login</span>
           </button>
         )}
       </div>
