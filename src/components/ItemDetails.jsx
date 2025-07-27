@@ -325,6 +325,7 @@ function ItemDetails() {
       </div>
       {/*  TRAILER SECTION */}
       <div className="trailer">
+        <h2>Trailer</h2>
         {itemTrailer.length > 0 && (
           <div className="trailer-container">
             <iframe
